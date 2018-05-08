@@ -13,34 +13,11 @@ minetest.register_chatcommand("givexp", {
 		return
 	end
 
-	local xpnum = tonumber(xp)
-	if xpnum == nil then
-		minetest.chat_send_player(caller, "not a number: " .. xp)
+	local newXp = xp_redo.add_xp(name, xp)
+	if newXp == nil then
 		return
 	end
 
-	local player = minetest.get_player_by_name(name)
-	if player == nil then
-		minetest.chat_send_player(caller, "not a player: " .. name)
-		return
-	end
-
-	local currentXpStr = player:get_attribute("xp")
-	local currentXp = 0
-	if currentXpStr ~= nil then
-		currentXp = tonumber(currentXpStr)
-		if currentXp == nil or currentXp < 0 then
-			currentXp = 0
-		end
-	end
-
-	local sumXp = currentXp + xp
-	if sumXp < 0 then
-		sumXp = 0
-	end
-
-	player:set_attribute("xp", sumXp)
-	minetest.chat_send_player(caller, "XP of player " .. name .. " = " .. sumXp)
-	
+	minetest.chat_send_player(caller, "XP of player " .. name .. " = " .. newXp)
     end,
 })
