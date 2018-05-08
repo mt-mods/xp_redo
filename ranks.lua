@@ -34,3 +34,17 @@ xp_redo.register_rank({
 	color={r=255, g=195, b=195},
 	xp=1000
 })
+
+xp_redo.register_rank({
+	name="Corporal",
+	icon="xp_rank_5_corporal.png",
+	color={r=255, g=175, b=175},
+	xp=10000
+})
+
+xp_redo.register_rank({
+	name="Private",
+	icon="xp_rank_6_seargant.png",
+	color={r=255, g=155, b=155},
+	xp=100000
+})
