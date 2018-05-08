@@ -1,4 +1,74 @@
 
+xp_redo.get_rank = function(xp)
+	if xp < 0 then
+		xp = 0
+	end
+
+	local result = nil
+	for i,rank in pairs(xp_redo.ranks) do
+		if xp >= rank.xp then
+			result = rank
+		end
+	end
+
+	return result
+end
+
+local level_up = function(player, rank)
+	minetest.sound_play({name="xp_redo_generic", gain=0.25}, {to_player=player:get_player_name()})
+
+
+	local one = player:hud_add({
+		hud_elem_type = "image",
+		name = "award_bg",
+		scale = {x = 2, y = 1},
+		text = "xp_levelup_bg_default.png",
+		position = {x = 0.5, y = 0},
+		offset = {x = 0, y = 138},
+		alignment = {x = 0, y = -1}
+	})
+
+	local two = player:hud_add({
+		hud_elem_type = "text",
+		name = "award_au",
+		number = 0xFFFFFF,
+		scale = {x = 100, y = 20},
+		text = "Level-up!",
+		position = {x = 0.5, y = 0},
+		offset = {x = 0, y = 40},
+		alignment = {x = 0, y = -1}
+	})
+
+	local three = player:hud_add({
+		hud_elem_type = "text",
+		name = "rank_title",
+		number = 0xFFFFFF,
+		scale = {x = 100, y = 20},
+		text = rank.name,
+		position = {x = 0.5, y = 0},
+		offset = {x = 30, y = 100},
+		alignment = {x = 0, y = -1}
+	})
+
+	local four = player:hud_add({
+		hud_elem_type = "image",
+		name = "award_icon",
+		scale = {x = 4, y = 4},
+		text = rank.icon,
+		position = {x = 0.4, y = 0},
+		offset = {x = -81.5, y = 126},
+		alignment = {x = 0, y = -1}
+	})
+
+	minetest.after(4, function()
+		player:hud_remove(one)
+		player:hud_remove(two)
+		player:hud_remove(three)
+		player:hud_remove(four)
+	end)
+end
+
+
 xp_redo.add_xp = function(playername, xp)
 
 	local player = minetest.get_player_by_name(playername)
@@ -22,23 +92,16 @@ xp_redo.add_xp = function(playername, xp)
 
 	player:set_attribute("xp", sumXp)
 
+	local previousRank = xp_redo.get_rank(currentXp)
+	local currentRank = xp_redo.get_rank(sumXp)
+	if currentRank.xp > previousRank.xp then
+		-- level up
+		level_up(player, currentRank)
+	end
+
 	return sumXp	
 end
 
-xp_redo.get_rank = function(xp)
-	if xp < 0 then
-		xp = 0
-	end
-
-	local result = nil
-	for i,rank in pairs(xp_redo.ranks) do
-		if xp >= rank.xp then
-			result = rank
-		end
-	end
-
-	return result
-end
 
 
 xp_redo.get_next_rank = function(xp, current_rank)
@@ -52,15 +115,10 @@ xp_redo.get_next_rank = function(xp, current_rank)
 
 	local result = nil
 	for i,rank in pairs(xp_redo.ranks) do
-		if result == nil or (rank.xp > current_rank.xp and result.xp > rank.xp) then
+		if (result ~= nil and rank.xp > current_rank.xp and rank.xp < result.xp) or
+		   (result == nil and rank.xp > current_rank.xp) then
 			result = rank
-
 		end
-	end
-
-	if result.xp <= current_rank.xp then
-		-- maxed out
-		return nil
 	end
 
 	return result
