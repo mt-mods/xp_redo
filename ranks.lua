@@ -9,7 +9,7 @@ end
 
 xp_redo.register_rank({
 	name="Recruit",
-	icon=nil,
+	icon="xp_rank_1_recruit.png",
 	color={r=255, g=255, b=255},
 	xp=0
 })
