@@ -39,6 +39,35 @@ minetest.register_node("xp_redo:xpgate", {
 
 			update_formspec(meta)
 		end
+	end,
+
+	on_punch = function(pos, node, clicker, pointed_thing)
+		local meta = minetest.get_meta(gate)
+		local name = clicker:get_player_name()
+
+		if name == meta:get_string("owner") then
+			-- dont send owner through
+			return
+		end
+
+		local xpthreshold = meta:get_int("xpthreshold")
+
+		local xp = xp_redo.get_xp(clicker:get_player_name())
+
+		if xp >= xpthreshold then
+			-- send him through
+			local ppos = clicker:get_pos()
+			clicker:moveto({y=pos.y, x=pos.x+(pos.x-ppos.x), z=pos.z+(pos.z-ppos.z)})
+		else
+			minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
+		end
+	end,
+
+	can_dig = function(pos, player)
+		local meta = minetest.get_meta(gate)
+		local name = player:get_player_name()
+
+		return name == meta:get_string("owner")
 	end
 })
 
