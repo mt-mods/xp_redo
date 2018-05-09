@@ -7,6 +7,7 @@ dofile(MP.."/ranks.lua")
 dofile(MP.."/hud.lua")
 dofile(MP.."/functions.lua")
 dofile(MP.."/chatcmd.lua")
+dofile(MP.."/xpgate.lua")
 
 
 print("[OK] XP-Redo")

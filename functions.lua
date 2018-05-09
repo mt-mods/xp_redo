@@ -68,12 +68,10 @@ local level_up = function(player, rank)
 	end)
 end
 
-
-xp_redo.add_xp = function(playername, xp)
-
+xp_redo.get_xp = function(playername)
 	local player = minetest.get_player_by_name(playername)
 	if player == nil then
-		return
+		return 0
 	end
 
 	local currentXpStr = player:get_attribute("xp")
@@ -84,6 +82,19 @@ xp_redo.add_xp = function(playername, xp)
 			currentXp = 0
 		end
 	end
+
+	return currentXp
+end
+
+
+xp_redo.add_xp = function(playername, xp)
+
+	local player = minetest.get_player_by_name(playername)
+	if player == nil then
+		return
+	end
+
+	local currentXp = xp_redo.get_xp(playername)
 
 	local sumXp = currentXp + xp
 	if sumXp < 0 then
