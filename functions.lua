@@ -50,13 +50,25 @@ local level_up = function(player, rank)
 		alignment = {x = 0, y = -1}
 	})
 
+	local rank_offset = {x = -1.5, y = 126}
+
 	local four = player:hud_add({
 		hud_elem_type = "image",
+		name = "award_bg",
+		scale = {x = 2, y = 2},
+		text = "xp_rank_bg.png",
+		position = {x = 0.4, y = 0},
+		offset = rank_offset,
+		alignment = {x = 0, y = -1}
+	})
+
+	local five = player:hud_add({
+		hud_elem_type = "image",
 		name = "award_icon",
-		scale = {x = 4, y = 4},
+		scale = {x = 2, y = 2},
 		text = rank.icon,
 		position = {x = 0.4, y = 0},
-		offset = {x = -81.5, y = 126},
+		offset = rank_offset,
 		alignment = {x = 0, y = -1}
 	})
 
@@ -65,6 +77,7 @@ local level_up = function(player, rank)
 		player:hud_remove(two)
 		player:hud_remove(three)
 		player:hud_remove(four)
+		player:hud_remove(five)
 	end)
 end
 
