@@ -43,7 +43,7 @@ xp_redo.register_rank({
 })
 
 xp_redo.register_rank({
-	name="Private",
+	name="Seargant",
 	icon="xp_rank_6_seargant.png",
 	color={r=255, g=155, b=155},
 	xp=100000
