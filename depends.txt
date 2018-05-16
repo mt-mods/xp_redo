@@ -1,2 +1,5 @@
 default
 doors?
+mobs_redo?
+mobs_animal?
+mobs_monster?

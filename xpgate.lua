@@ -42,7 +42,7 @@ minetest.register_node("xp_redo:xpgate", {
 	end,
 
 	on_punch = function(pos, node, clicker, pointed_thing)
-		local meta = minetest.get_meta(gate)
+		local meta = minetest.get_meta(pos)
 		local name = clicker:get_player_name()
 
 		if name == meta:get_string("owner") then
