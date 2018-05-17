@@ -7,6 +7,8 @@ The xp level, your rank and a progress bar to the next rank will show up in your
 On every rank level up you get a award-like notification.
 There is also a xpgate block which, when placed under a wooden door will only allow players with a certain xp level to go through.
 
+* Forum-Topic: [https://forum.minetest.net/viewtopic.php?f=9&t=20124](https://forum.minetest.net/viewtopic.php?f=9&t=20124)
+
 # Install
 
 * Unzip/Clone it to your worldmods folder
