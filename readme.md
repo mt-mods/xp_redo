@@ -4,6 +4,7 @@ Minetest XP mod (xp_redo)
 Minetest mod for player experience management (xp)
 It adds an xp counter per player and ranks according to your xp level.
 The xp level, your rank and a progress bar to the next rank will show up in your hud.
+On every rank level up you get a award-like notification.
 There is also a xpgate block which, when placed under a wooden door will only allow players with a certain xp level to go through.
 
 # Install
@@ -111,4 +112,12 @@ Adds the amount of xp to given playername (can be negative for xp removal)
 # Pull requests / bugs
 
 I'm happy for any bug reports or pull requests (code and textures)
+
+# TODO / Ideas
+
+* Scoreboard (block)
+* More doors
+* Door-teleport alternative
+* XP Regions
+* XP entities/items
 
