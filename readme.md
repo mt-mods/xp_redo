@@ -65,6 +65,11 @@ Note: **Android screenshot, ignore wrong spacing**
 ![](screenshots/Minetest_2018-05-17-09-25-53.png?raw=true)
 Note: **It will teleport you through if you have enough xp and try to open it**
 
+## Player nametags (with rank-colors)
+![](screenshots/Minetest_2018-05-17-09-35-30.png?raw=true)
+![](screenshots/Minetest_2018-05-17-09-36-11.png?raw=true)
+
+
 # Ranks
 
 Some initial ranks are hardcoded in **ranks.lua**
