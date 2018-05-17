@@ -71,7 +71,7 @@ Some initial ranks are hardcoded in **ranks.lua**
 
 * Recruit (xp: 0) ![](textures/xp_rank_1_recruit.png?raw=true)
 * Soldier (xp: 10) ![](textures/xp_rank_2_soldier.png?raw=true)
-* Appointee (xp: 100) ![](textures/xp_rank_3_apointee.png?raw=true)
+* Appointee (xp: 100) ![](textures/xp_rank_3_appointee.png?raw=true)
 * Private (xp: 1000) ![](textures/xp_rank_4_private.png?raw=true)
 * Corporal (xp: 10000) ![](textures/xp_rank_5_corporal.png?raw=true)
 * Seargant (xp: 100000) ![](textures/xp_rank_6_seargant.png?raw=true)
