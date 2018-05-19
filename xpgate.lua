@@ -64,7 +64,7 @@ minetest.register_node("xp_redo:xpgate", {
 	end,
 
 	can_dig = function(pos, player)
-		local meta = minetest.get_meta(gate)
+		local meta = minetest.get_meta(pos)
 		local name = player:get_player_name()
 
 		return name == meta:get_string("owner")
