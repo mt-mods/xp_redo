@@ -21,3 +21,12 @@ minetest.register_chatcommand("givexp", {
 	minetest.chat_send_player(caller, "XP of player " .. name .. " = " .. newXp)
     end,
 })
+
+minetest.register_chatcommand("highscore", {
+    description = "show xp highscore",
+    func = function(caller, param)
+	for _,entry in pairs(xp_redo.highscore) do
+		minetest.chat_send_player(caller, entry.name .. ": " .. entry.xp)
+	end
+    end,
+})
