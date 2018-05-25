@@ -54,8 +54,6 @@ local update_highscore = function()
 	while table.getn(xp_redo.highscore) > 10 do
 		table.remove(xp_redo.highscore, table.getn(xp_redo.highscore))
 	end
-
-	print(dump(xp_redo.highscore)) -- XXX
 end
 
 local timer = 0

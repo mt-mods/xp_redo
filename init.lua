@@ -12,6 +12,13 @@ dofile(MP.."/dig.lua")
 dofile(MP.."/highscore.lua")
 dofile(MP.."/chatcmd.lua")
 
+local has_ehlphabet_mod = minetest.get_modpath("ehlphabet")
+
+if has_ehlphabet_mod then
+	-- load highscore board
+	dofile(MP.."/highscore_board.lua")
+end
+
 
 
 print("[OK] XP-Redo")
