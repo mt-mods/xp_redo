@@ -9,6 +9,7 @@ local update_formspec = function(meta)
 end
 
 local build_board = function(pos)
+	local start = os.clock()
 
 	local meta = minetest.get_meta(pos)
 	local orientation = meta:get_string("orientation")
@@ -45,6 +46,8 @@ local build_board = function(pos)
 	end
 
 	local id_stone = minetest.get_content_id("default:stone")
+	local id_blank = minetest.get_content_id("ehlphabet:block")
+	local id_air = minetest.get_content_id("air")
 
 	-- Get the vmanip object and the area and nodes
 	local manip = minetest.get_voxel_manip()
@@ -54,31 +57,64 @@ local build_board = function(pos)
 
 	local set_coord = function(row, col, id)
 		local x = fromX + (col * mulX)
-		local y = fromY - row + 1 -- row1 == pos+0
+		local y = fromY - row
 		local z = fromZ + (col * mulZ)
 
-		print(x .. "/" .. y .. "/" .. z) --XXX
+		-- print(x .. "/" .. y .. "/" .. z)
 
 		data[area:index(x,y,z)] = id
 	end
 
-	local row = 1
-	local col = 1
+	local entries = {} -- list of strings
 
-	while row < 13 do
-		while col <= 20 do
-			if row == 1 or row == 12 then
-				-- border
-				set_coord(row, col, id_stone)
-			else
-				-- name
-				-- TODO
-			end
+	for _,entry in pairs(xp_redo.highscore) do
+		local line = string.sub(entry.name, 1, 8)
 
-			col = col + 1
+		while string.len(line) < 10 do
+			line = line .. " "
 		end
 
-		row = row + 1
+	end
+
+	local rows = 12
+	local cols = 20
+
+	for row=1,rows do
+		for col=1,cols do
+			if row == 1 or row == rows then
+				-- h-border
+				set_coord(row, col, id_stone)
+			elseif col == 1 or col == cols then
+				-- v-border
+				set_coord(row, col, id_stone)
+			else
+				-- content (2...rows) (2...cols)
+				local entry = xp_redo.highscore[row-1]
+				if entry then
+					local char = string.byte(entry.name, col-1)
+					if char then
+						if char >= 97 and char <= 122 then
+							-- lower case letter, convert to upper case
+							char = char - 32 -- string.byte("a", 1) - string.byte("A", 1)
+						end
+						
+						local id = minetest.get_content_id("ehlphabet:" .. char)
+						if id then
+							set_coord(row, col, id)
+						else
+							set_coord(row, col, id_blank)
+						end
+					else
+						-- no char...
+						set_coord(row, col, id_blank)
+
+					end
+				else
+					set_coord(row, col, id_blank)
+				end
+				-- TODO
+			end
+		end
 	end
  
 	-- Doc: http://dev.minetest.net/vmanip
@@ -86,7 +122,8 @@ local build_board = function(pos)
 	manip:set_data(data)
 	manip:write_to_map()
 
-	print("building highscore board") -- XXX
+	local diff = os.clock() - start
+	print("Board painting took " .. diff .. " seconds")
 end
 
 
