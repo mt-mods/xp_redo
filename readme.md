@@ -8,6 +8,7 @@ On every rank level up you get a award-like notification.
 There is also a xpgate block which, when placed under a wooden door will only allow players with a certain xp level to go through.
 
 * Forum-Topic: [https://forum.minetest.net/viewtopic.php?f=9&t=20124](https://forum.minetest.net/viewtopic.php?f=9&t=20124)
+* With some ideas from: [https://forum.minetest.net/viewtopic.php?id=3291](https://forum.minetest.net/viewtopic.php?id=3291)
 
 # Install
 
