@@ -58,7 +58,8 @@ minetest.register_node("xp_redo:xpgate", {
 		if xp >= xpthreshold then
 			-- send him through
 			local ppos = clicker:get_pos()
-			clicker:moveto({y=pos.y, x=pos.x+(pos.x-ppos.x), z=pos.z+(pos.z-ppos.z)})
+			local dir = vector.direction(ppos, pos)
+			clicker:moveto(vector.add(pos, dir))
 		else
 			minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
 		end
@@ -94,7 +95,8 @@ local override_door = function(name)
 
 				if xp >= xpthreshold then
 					local ppos = clicker:get_pos()
-					clicker:moveto({y=pos.y, x=pos.x+(pos.x-ppos.x), z=pos.z+(pos.z-ppos.z)})
+					local dir = vector.direction(ppos, pos)
+					clicker:moveto(vector.add(pos, dir))
 				else
 					minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
 				end
