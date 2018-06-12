@@ -1,3 +1,4 @@
+local has_protector_mod = minetest.get_modpath("protector")
 
 local update_formspec = function(meta)
 	local threshold = meta:get_int("xpthreshold")
@@ -71,36 +72,50 @@ minetest.register_node("xp_redo:xpgate", {
 	end
 })
 
+local override_door = function(name)
 
-local doorDef = minetest.registered_nodes["doors:door_wood_b"]
+	local doorDef = minetest.registered_nodes[name]
 
-if doorDef ~= nil then
-	-- override door def
-	local doorRightClick = doorDef.on_rightclick
+	if doorDef ~= nil then
+		-- override door def
+		local doorRightClick = doorDef.on_rightclick
 
-	doorDef.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		-- print("override!" .. pos.x .. "/" .. pos.y .. ":" .. clicker:get_player_name())
+		doorDef.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+			-- print("override!" .. pos.x .. "/" .. pos.y .. ":" .. clicker:get_player_name())
 
-		local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
-		if gate ~= nil then
-			-- xp limited door
+			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
+			if gate ~= nil then
+				-- xp limited door
 
-			local meta = minetest.get_meta(gate)
-			local xpthreshold = meta:get_int("xpthreshold")
+				local meta = minetest.get_meta(gate)
+				local xpthreshold = meta:get_int("xpthreshold")
 
-			local xp = xp_redo.get_xp(clicker:get_player_name())
+				local xp = xp_redo.get_xp(clicker:get_player_name())
 
-			if xp >= xpthreshold then
-				local ppos = clicker:get_pos()
-				clicker:moveto({y=pos.y, x=pos.x+(pos.x-ppos.x), z=pos.z+(pos.z-ppos.z)})
+				if xp >= xpthreshold then
+					local ppos = clicker:get_pos()
+					clicker:moveto({y=pos.y, x=pos.x+(pos.x-ppos.x), z=pos.z+(pos.z-ppos.z)})
+				else
+					minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
+				end
+
 			else
-				minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
+				-- normal door
+				doorRightClick(pos, node, clicker, itemstack, pointed_thing)
 			end
-
-		else
-			-- normal door
-			doorRightClick(pos, node, clicker, itemstack, pointed_thing)
 		end
+
 	end
 
+
 end
+
+if has_protector_mod then
+	override_door("protector:door_steel_b_1")
+	override_door("protector:door_steel_b_2")
+	override_door("protector:door_steel_t_1")
+	override_door("protector:door_steel_t_2")
+end
+
+override_door("doors:door_wood_b")
+

@@ -1,4 +1,5 @@
 default
+protector?
 doors?
 mobs_redo?
 mobs_animal?
