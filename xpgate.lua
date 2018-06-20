@@ -87,7 +87,7 @@ local override_door = function(name, yoffset)
 			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
 			if gate ~= nil then
 				-- xp limited door
-
+I
 				local meta = minetest.get_meta(gate)
 				local xpthreshold = meta:get_int("xpthreshold")
 
@@ -95,7 +95,7 @@ local override_door = function(name, yoffset)
 
 				if xp >= xpthreshold then
 					local ppos = clicker:get_pos()
-					ppos.y = ppos.y + offset -- door top offset
+					ppos.y = ppos.y + yoffset -- door top offset
 					local dir = vector.direction(ppos, pos)
 					clicker:moveto(vector.add(pos, dir))
 				else
