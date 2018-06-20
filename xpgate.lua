@@ -73,7 +73,7 @@ minetest.register_node("xp_redo:xpgate", {
 	end
 })
 
-local override_door = function(name)
+local override_door = function(name, yoffset)
 
 	local doorDef = minetest.registered_nodes[name]
 
@@ -95,6 +95,7 @@ local override_door = function(name)
 
 				if xp >= xpthreshold then
 					local ppos = clicker:get_pos()
+					ppos.y = ppos.y + offset -- door top offset
 					local dir = vector.direction(ppos, pos)
 					clicker:moveto(vector.add(pos, dir))
 				else
@@ -113,11 +114,11 @@ local override_door = function(name)
 end
 
 if has_protector_mod then
-	override_door("protector:door_steel_b_1")
-	override_door("protector:door_steel_b_2")
-	override_door("protector:door_steel_t_1")
-	override_door("protector:door_steel_t_2")
+	override_door("protector:door_steel_b_1", 0)
+	override_door("protector:door_steel_b_2", 0)
+	override_door("protector:door_steel_t_1", -1)
+	override_door("protector:door_steel_t_2", -1)
 end
 
-override_door("doors:door_wood_b")
+override_door("doors:door_wood_b", 0)
 
