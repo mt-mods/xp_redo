@@ -87,7 +87,6 @@ local override_door = function(name, yoffset)
 			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
 			if gate ~= nil then
 				-- xp limited door
-I
 				local meta = minetest.get_meta(gate)
 				local xpthreshold = meta:get_int("xpthreshold")
 
