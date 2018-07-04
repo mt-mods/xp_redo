@@ -158,7 +158,10 @@ minetest.register_globalstep(function(dtime)
 			local next_rank = xp_redo.get_next_rank(xp, rank)
 
 			xp_redo.update_hud(player, xp, rank, next_rank)
-			xp_redo.update_rank_entity(player, rank)
+
+			if not xp_redo.disable_hover_entity then
+				xp_redo.update_rank_entity(player, rank)
+			end
 		end
 
 		timer = 0

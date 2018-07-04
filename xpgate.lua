@@ -121,3 +121,12 @@ end
 
 override_door("doors:door_wood_b", 0)
 
+minetest.register_craft({
+	output = 'xp_redo:xpgate',
+	recipe = {
+		{'doors:door_wood', '', 'doors:door_steel'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'doors:door_steel', '', 'doors:door_wood'}
+	}
+})
+

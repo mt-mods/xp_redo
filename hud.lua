@@ -39,11 +39,12 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	player:hud_change(data.progressimg, "scale", { x=progress, y=1 })
 
-	player:set_nametag_attributes({
-		color=rank.color,
-		text=playername .. " (" .. format_thousand(xp) .. ")"
-	})
-
+	if not xp_redo.disable_nametag then
+		player:set_nametag_attributes({
+			color=rank.color,
+			text=playername .. " (" .. format_thousand(xp) .. ")"
+		})
+	end
 end
 
 minetest.register_on_joinplayer(function(player)
