@@ -67,20 +67,11 @@ minetest.register_on_joinplayer(function(player)
 
 	local RANK_IMG_OFFSET = {x = -50,   y = 15}
 
-	player:hud_add({
-		hud_elem_type = "image",
-		position = HUD_POSITION,
-		offset = RANK_IMG_OFFSET,
-		text = "xp_rank_bg.png",
-		alignment = HUD_ALIGNMENT,
-		scale = {x = 2, y = 2}
-	})
-
 	data.rankimg = player:hud_add({
 		hud_elem_type = "image",
 		position = HUD_POSITION,
 		offset = RANK_IMG_OFFSET,
-		text = "xp_rank_1_recruit.png",
+		text = "xp_empty.png",
 		alignment = HUD_ALIGNMENT,
 		scale = {x = 2, y = 2}
 	})
