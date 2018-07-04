@@ -41,7 +41,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	player:set_nametag_attributes({
 		color=rank.color,
-		text="[" .. rank.name .. "|" .. format_thousand(xp) .. "] " .. playername
+		text=playername .. " (" .. format_thousand(xp) .. ")"
 	})
 
 end
