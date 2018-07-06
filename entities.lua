@@ -15,9 +15,7 @@ for i,rank in pairs(xp_redo.ranks) do
 			physical = false,
 			collide_with_objects = false,
 			pointable = false,
-			static_save = false,
-			nametag = rank.name, --TODO: client compat?
-			nametag_color = rank.color
+			static_save = false
 		},
 		attached = nil
 	});
