@@ -11,6 +11,7 @@ xp_redo = {
 }
 
 dofile(MP.."/ranks.lua")
+dofile(MP.."/json.lua") --json export
 
 if not xp_redo.disable_hover_entity then
 
