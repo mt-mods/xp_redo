@@ -42,29 +42,6 @@ minetest.register_node("xp_redo:xpgate", {
 		end
 	end,
 
-	on_punch = function(pos, node, clicker, pointed_thing)
-		local meta = minetest.get_meta(pos)
-		local name = clicker:get_player_name()
-
-		if name == meta:get_string("owner") then
-			-- dont send owner through
-			return
-		end
-
-		local xpthreshold = meta:get_int("xpthreshold")
-
-		local xp = xp_redo.get_xp(clicker:get_player_name())
-
-		if xp >= xpthreshold then
-			-- send him through
-			local ppos = clicker:get_pos()
-			local dir = vector.direction(ppos, pos)
-			clicker:moveto(vector.add(pos, dir))
-		else
-			minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
-		end
-	end,
-
 	can_dig = function(pos, player)
 		local meta = minetest.get_meta(pos)
 		local name = player:get_player_name()
@@ -82,7 +59,10 @@ local override_door = function(name, yoffset)
 		local doorRightClick = doorDef.on_rightclick
 
 		doorDef.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-			-- print("override!" .. pos.x .. "/" .. pos.y .. ":" .. clicker:get_player_name())
+			minetest.log("action", "x-gate @ " .. pos.x .. "/" .. pos.y .. "/" .. pos.z)
+			local ppos = clicker:get_pos()
+
+			minetest.log("action", "x-gate clicked by player @ " .. ppos.x .. "/" .. ppos.y .. "/" .. ppos.z)
 
 			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
 			if gate ~= nil then
@@ -93,10 +73,14 @@ local override_door = function(name, yoffset)
 				local xp = xp_redo.get_xp(clicker:get_player_name())
 
 				if xp >= xpthreshold then
-					local ppos = clicker:get_pos()
-					ppos.y = ppos.y + yoffset -- door top offset
 					local dir = vector.direction(ppos, pos)
-					clicker:moveto(vector.add(pos, dir))
+					local newPos = vector.add(pos, dir)
+
+					-- use y from door
+					newPos.y = pos.y + yoffset
+
+					clicker:moveto(newPos)
+					minetest.log("action", "x-gate moving player to " .. newPos.x .. "/" .. newPos.y .. "/" .. newPos.z)
 				else
 					minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
 				end
@@ -113,13 +97,13 @@ local override_door = function(name, yoffset)
 end
 
 if has_protector_mod then
-	override_door("protector:door_steel_b_1", 0)
-	override_door("protector:door_steel_b_2", 0)
-	override_door("protector:door_steel_t_1", -1)
-	override_door("protector:door_steel_t_2", -1)
+	override_door("protector:door_steel_b_1", -0.5)
+	override_door("protector:door_steel_b_2", -0.5)
+	override_door("protector:door_steel_t_1", -1.5)
+	override_door("protector:door_steel_t_2", -1.5)
 end
 
-override_door("doors:door_wood_b", 0)
+override_door("doors:door_wood_b", -0.5)
 
 minetest.register_craft({
 	output = 'xp_redo:xpgate',
