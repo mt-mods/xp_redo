@@ -17,6 +17,11 @@ for i,rank in pairs(xp_redo.ranks) do
 			pointable = false,
 			static_save = false
 		},
+		on_step = function(self, dtime)
+			if self.object.get_attach and not self.object:get_attach() then
+				self.object:remove()
+			end
+		end,
 		attached = nil
 	});
 
