@@ -42,7 +42,7 @@ local update_highscore = function()
 
 		if not found then
 			-- create new entry
-			local xp = tonumber(player:get_attribute("xp")) or 0
+			local xp = tonumber(player:get_attribute("xp") or "0")
 			table.insert(xp_redo.highscore, { name=name, xp=xp })
 		end
 	end

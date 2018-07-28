@@ -20,7 +20,7 @@ end)
 
 minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	if player and player:is_player() then
-		xp_redo.add_xp(player:get_player_name(), itemstack:get_count())
+		xp_redo.add_xp(player:get_player_name(), 1) -- money back and forth hack
 	end
 end)
 
