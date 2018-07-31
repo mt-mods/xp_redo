@@ -7,7 +7,12 @@ xp_redo = {
 	disable_nametag = minetest.settings:get_bool("xp.display_nametag"),
 
 	-- rank entity on top of player
-	disable_hover_entity = minetest.settings:get_bool("xp.display_hover_entity")
+	disable_hover_entity = minetest.settings:get_bool("xp.display_hover_entity"),
+
+	hud = {
+		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
+		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)
+	}
 }
 
 dofile(MP.."/ranks.lua")

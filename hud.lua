@@ -1,7 +1,7 @@
 
 local hud = {} -- playername -> data
 
-local HUD_POSITION = {x = 0.6, y = 0.7}
+local HUD_POSITION = {x = xp_redo.hud.posx, y = xp_redo.hud.posy}
 local HUD_ALIGNMENT = {x = 1, y = 0}
 
 -- http://lua-users.org/lists/lua-l/2006-01/msg00525.html
