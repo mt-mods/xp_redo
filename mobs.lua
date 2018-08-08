@@ -3,7 +3,6 @@ for _,entity in pairs(minetest.registered_entities) do
 	if entity.on_punch ~= nil and entity.hp_min ~= nil and entity.hp_min > 0 then
 
 		local originalPunch = entity.on_punch
-		print(entity.name)
 
 		entity.on_punch = function(self, hitter,time_from_last_punch, tool_capabilities, direction)
 
