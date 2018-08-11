@@ -107,7 +107,7 @@ xp_redo.register_rank({
 })
 
 xp_redo.register_rank({
-	Iname="Captain",
+	name="Captain",
 	icon="xp_rank_14_captain.png",
 	color={r=255, g=115, b=115},
 	xp=600000
