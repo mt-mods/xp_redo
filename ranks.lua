@@ -117,7 +117,7 @@ xp_redo.register_rank({
 	name="Major",
 	icon="xp_rank_15_major.png",
 	color={r=255, g=105, b=105},
-	xp=7000000
+	xp=700000
 })
 
 xp_redo.register_rank({
