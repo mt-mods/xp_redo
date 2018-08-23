@@ -45,7 +45,12 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	end
 end)
 
+-- reward on eating
+-- minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, user, pointed_thing)
+--	print(hp_change .. " - " .. user:get_hp())
+-- end);
 
+-- reward on crafting
 minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	if player and player:is_player() then
 		-- limit craft reward to mitigate back-and-forth crafting for xp
