@@ -35,7 +35,9 @@ minetest.register_node("xp_redo:xpgate", {
 			-- ownder
 			if fields.xpthreshold then
 				local xpthreshold = tonumber(fields.xpthreshold)
-				meta:set_int("xpthreshold", xpthreshold)
+				if xpthreshold ~= nil then
+					meta:set_int("xpthreshold", xpthreshold)
+				end
 			end
 
 			update_formspec(meta)
