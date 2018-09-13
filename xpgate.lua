@@ -64,7 +64,7 @@ local override_door = function(name, yoffset)
 			minetest.log("action", "x-gate @ " .. pos.x .. "/" .. pos.y .. "/" .. pos.z)
 			local ppos = clicker:get_pos()
 
-			minetest.log("action", "x-gate clicked by player @ " .. ppos.x .. "/" .. ppos.y .. "/" .. ppos.z)
+			minetest.log("action", "xp-gate clicked by player " .. clicker:get_player_name() .. " @ " .. ppos.x .. "/" .. ppos.y .. "/" .. ppos.z)
 
 			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
 			if gate ~= nil then
@@ -82,7 +82,7 @@ local override_door = function(name, yoffset)
 					newPos.y = pos.y + yoffset
 
 					clicker:moveto(newPos)
-					minetest.log("action", "x-gate moving player to " .. newPos.x .. "/" .. newPos.y .. "/" .. newPos.z)
+					minetest.log("action", "xp-gate moving player to " .. newPos.x .. "/" .. newPos.y .. "/" .. newPos.z)
 				else
 					minetest.chat_send_player(clicker:get_player_name(), "Not enough xp, needed: " .. xpthreshold)
 				end
