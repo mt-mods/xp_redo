@@ -50,11 +50,16 @@ end)
 --	print(hp_change .. " - " .. user:get_hp())
 -- end);
 
--- reward on crafting
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+-- external accessible
+xp_redo.on_craft = function(itemstack, player)
 	if player and player:is_player() then
 		-- limit craft reward to mitigate back-and-forth crafting for xp
-		xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 5))
+		 xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 10))
 	end
+end
+
+-- reward on crafting
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+	xp_redo.on_craft(itemstack, player)
 end)
 
