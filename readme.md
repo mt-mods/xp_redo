@@ -117,6 +117,12 @@ Returns the xp level for given playername (always a number)
 
 Adds the amount of xp to given playername (can be negative for xp removal)
 
+# License
+
+See LICENSE.txt
+
+* Trophy model/texture source: https://gitlab.com/VanessaE/homedecor_modpack/
+
 # Pull requests / bugs
 
 I'm happy for any bug reports or pull requests (code and textures)
