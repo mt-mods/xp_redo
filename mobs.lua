@@ -1,4 +1,19 @@
 
+local increment_punch_count = function(player, name)
+	if player == nil or player.get_attribute == nil then
+		-- fake player
+		return
+	end
+
+	local count = player:get_attribute("punch_count")
+	if not count then
+		count = 0
+	end
+
+	player:set_attribute("punch_count", count + 1)
+end
+
+
 for _,entity in pairs(minetest.registered_entities) do
 	if entity.on_punch ~= nil and entity.hp_min ~= nil and entity.hp_min > 0 then
 
@@ -13,6 +28,7 @@ for _,entity in pairs(minetest.registered_entities) do
 
 				if hitter:is_player() then
 					xp_redo.add_xp(hitter:get_player_name(), rest * 2)
+					increment_punch_count(hitter)
 				end
 			end
 
