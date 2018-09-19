@@ -155,11 +155,52 @@ xp_redo.register_rank({
 	xp=1200000
 })
 
--- cap at 1.5 mil
 xp_redo.register_rank({
 	name="General Minetest",
 	icon="xp_rank_21_general_minetest.png",
 	color={r=255, g=45, b=45},
 	xp=1500000
+})
+
+-- diamond ranks
+
+xp_redo.register_rank({
+        name="Diamond lord",
+        icon="default_diamond.png",
+        color={r=66, g=189, b=196}, -- dark blue
+        xp=2000000
+})
+
+xp_redo.register_rank({
+        name="Diamond god",
+        icon="default_diamond_block.png",
+        color={r=0, g=242, b=255}, -- blue
+        xp=2500000
+})
+
+
+-- mese ranks
+
+xp_redo.register_rank({
+        name="Mese lord",
+        icon="default_mese_crystal.png",
+        color={r=188, g=184, b=62}, -- dark yellow
+        xp=3000000
+})      
+
+xp_redo.register_rank({
+        name="Mese god",
+        icon="default_mese_block.png",
+        color={r=255, g=246, b=0}, -- yellow
+        xp=3500000
+})
+
+-- final rank (for sure, not hoing any further...)
+
+xp_redo.register_rank({
+        name="God of pandora",
+        icon="default_lava.png",
+        color={r=25, g=255, b=0}, -- should be green
+        xp=5000000
 })
 
