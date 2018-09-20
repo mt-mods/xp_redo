@@ -2,7 +2,15 @@
 
 -- bonus on placing
 minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
-	if player and player:is_player() then
+	if player and player:is_player() and not player.is_fake_player then
+
+		--[[
+		if minetest.find_node_near(pos, 1, {"pipeworks:deployer_on", "pipeworks:deployer_off"}, false) then
+			-- don't count deployer actions
+			return
+		end
+		--]]
+
 		xp_redo.add_xp(player:get_player_name(), 1)
 	end
 end)
@@ -30,8 +38,15 @@ register_node_reward("default:stone_with_tin", 2)
 
 -- bonus on digging
 minetest.register_on_dignode(function(pos, oldnode, digger)
-	if digger ~= nil and digger:is_player() then
+	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
 		local reward = 1
+
+		--[[
+		if minetest.find_node_near(pos, 1, {"pipeworks:nodebreaker_on", "pipeworks:nodebreaker_off"}, false) then
+			-- don't count nodebreaker actions
+			return
+		end
+		--]]
 
 		if oldnode.name then
 			for _,entry in pairs(node_reward_table) do
