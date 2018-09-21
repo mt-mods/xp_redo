@@ -165,14 +165,14 @@ xp_redo.register_rank({
 -- diamond ranks
 
 xp_redo.register_rank({
-        name="Diamond lord",
+        name="Diamond Lord",
         icon="default_diamond.png",
         color={r=66, g=189, b=196}, -- dark blue
         xp=2000000
 })
 
 xp_redo.register_rank({
-        name="Diamond god",
+        name="Diamond God",
         icon="default_diamond_block.png",
         color={r=0, g=242, b=255}, -- blue
         xp=2500000
@@ -182,14 +182,14 @@ xp_redo.register_rank({
 -- mese ranks
 
 xp_redo.register_rank({
-        name="Mese lord",
+        name="Mese Lord",
         icon="default_mese_crystal.png",
         color={r=188, g=184, b=62}, -- dark yellow
         xp=3000000
 })      
 
 xp_redo.register_rank({
-        name="Mese god",
+        name="Mese God",
         icon="default_mese_block.png",
         color={r=255, g=246, b=0}, -- yellow
         xp=3500000
@@ -198,7 +198,7 @@ xp_redo.register_rank({
 -- final rank (for sure, not hoing any further...)
 
 xp_redo.register_rank({
-        name="God of pandora",
+        name="God of Pandora",
         icon="default_lava.png",
         color={r=25, g=255, b=0}, -- should be green
         xp=5000000
