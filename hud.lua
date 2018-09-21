@@ -74,7 +74,7 @@ minetest.register_on_joinplayer(function(player)
 
 	-- rank img
 
-	local RANK_IMG_OFFSET = {x = -50,   y = 15}
+	local RANK_IMG_OFFSET = {x = 0,   y = 90}
 
 	data.rankimg = player:hud_add({
 		hud_elem_type = "image",
