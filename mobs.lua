@@ -42,6 +42,7 @@ for _,entity in pairs(minetest.registered_entities) do
 
 				if hitter:is_player() then
 					-- xp_redo.add_xp(hitter:get_player_name(), rest * 2)
+					xp_redo.add_xp(hitter:get_player_name(), 1)
 					increase_inflicted_damage(hitter, rest * 2)
 					increment_punch_count(hitter)
 				end
