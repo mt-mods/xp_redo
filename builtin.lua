@@ -41,12 +41,15 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
 		local reward = 1
 
-		--[[
-		if minetest.find_node_near(pos, 1, {"pipeworks:nodebreaker_on", "pipeworks:nodebreaker_off"}, false) then
-			-- don't count nodebreaker actions
-			return
+		local wield_item = digger:get_wielded_item()
+		if wield_item then
+			local name = wield_item:get_name()
+			-- check for mining laser/drill
+			if string.find(name, "technic%:laser") or string.find(name, "technic%:mining") then
+				-- no reward
+				return
+			end
 		end
-		--]]
 
 		if oldnode.name then
 			for _,entry in pairs(node_reward_table) do
