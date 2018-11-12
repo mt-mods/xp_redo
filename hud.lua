@@ -169,7 +169,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	if not xp_redo.disable_nametag then
 		player:set_nametag_attributes({
 			color=rank.color,
-			text="[" .. rank.name .. "|" .. format_thousand(xp) .. "] " .. playername
+			text="[" .. rank.name .. "] " .. playername
 		})
 	end
 end
