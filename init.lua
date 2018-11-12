@@ -28,6 +28,7 @@ end
 dofile(MP.."/stats.lua")
 dofile(MP.."/hud.lua")
 dofile(MP.."/functions.lua")
+dofile(MP.."/globalstep.lua")
 dofile(MP.."/xpgate.lua")
 dofile(MP.."/mobs.lua")
 dofile(MP.."/highscore.lua")
