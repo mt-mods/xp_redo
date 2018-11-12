@@ -135,6 +135,10 @@ minetest.register_chatcommand("xp_hud", {
 	end
 })
 
+local get_color = function(r,g,b)
+	return b + (g * 256) + (r * 256 * 256)
+end
+
 xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	local playername = player:get_player_name()
@@ -157,7 +161,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	player:hud_change(data.info, "text", infoTxt)
 
-	local color = rank.color.b + (rank.color.g * 256) + (rank.color.r * 256 * 256)
+	local color = get_color(rank.color.r, rank.color.g, rank.color.b)
 
 	player:hud_change(data.rank, "number", color)
 	player:hud_change(data.rank, "text", "[" .. rank.name .. "]")
@@ -167,10 +171,21 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	player:hud_change(data.progressimg, "scale", { x=progress, y=1 })
 
 	if not xp_redo.disable_nametag then
-		player:set_nametag_attributes({
-			color=rank.color,
-			text="[" .. rank.name .. "] " .. playername
-		})
+		if minetest.check_player_privs(playername, {privs=true}) then
+			-- player is an admin
+			player:set_nametag_attributes({
+				color = {r=0, g=255, b=0},
+				text = playername
+			})
+
+		else
+			-- normal player
+			player:set_nametag_attributes({
+				color = rank.color,
+				text = "[" .. rank.name .. "] " .. playername
+			})
+
+		end
 	end
 end
 
