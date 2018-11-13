@@ -106,3 +106,14 @@ function minetest.is_protected(pos, digger)
 	-- otherwise can dig or place
 	return old_is_protected(pos, digger)
 end
+
+
+minetest.register_craft({
+	output = 'xp_redo:protector',
+	recipe = {
+		{'doors:door_wood', '', 'doors:door_steel'},
+		{'group:wood', 'xp_gate:xpgate', 'group:wood'},
+		{'doors:door_steel', '', 'doors:door_wood'}
+	}
+})
+
