@@ -112,7 +112,7 @@ minetest.register_craft({
 	output = 'xp_redo:protector',
 	recipe = {
 		{'doors:door_wood', '', 'doors:door_steel'},
-		{'group:wood', 'xp_gate:xpgate', 'group:wood'},
+		{'group:wood', 'xp_redo:xpgate', 'group:wood'},
 		{'doors:door_steel', '', 'doors:door_wood'}
 	}
 })
