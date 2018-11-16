@@ -1,13 +1,12 @@
 
 
 local get_entity_name = function(rank)
-	return "xp_redo:xp" .. rank.xp
+	return minetest.get_current_modname() .. ":xp" .. rank.xp
 end
 
-for i,rank in pairs(xp_redo.ranks) do
-
-	local name = get_entity_name(rank)
-	minetest.register_entity(name, {
+xp_redo.register_rank_entity = function(rank)
+	rank.entityname = get_entity_name(rank)
+	minetest.register_entity(rank.entityname, {
 		initial_properties = {
 			visual = "upright_sprite",
 			visual_size = {x=0.5,y=0.5},
@@ -24,7 +23,6 @@ for i,rank in pairs(xp_redo.ranks) do
 		end,
 		attached = nil
 	});
-
 end
 
 local player_data = {}
@@ -63,8 +61,7 @@ xp_redo.update_rank_entity = function(player, rank)
 	if not data then
 		local pos = player:getpos()
 
-		local name = get_entity_name(rank)
-		local entity = minetest.add_entity(pos, name)
+		local entity = minetest.add_entity(pos, rank.entityname)
 
 		entity:set_attach(player, "", {x=0,y=15,z=0}, {x=0,y=0,z=0})
 
