@@ -1,6 +1,5 @@
 
-
-if minetest.write_json then
+local export_ranks = function()
 	local fname = minetest.get_worldpath().."/ranks.json"
 	print("[XP-Redo] Exporting ranks as json to: " .. fname)
 
@@ -9,4 +8,8 @@ if minetest.write_json then
 	f:write(data_string)
 	io.close(f)
 	f = nil
+end
+
+if minetest.write_json then
+	minetest.after(5, export_ranks)
 end
