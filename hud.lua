@@ -144,7 +144,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	local playername = player:get_player_name()
 	local data = hud[playername]
 
-	if not data then
+	if not data or not rank then
 		return
 	end
 
