@@ -125,7 +125,7 @@ xp_redo.get_next_rank = function(xp, current_rank)
 	end
 
 	if current_rank == nil then
-		current_rank = get_rank(xp)
+		current_rank = xp_redo.get_rank(xp)
 	end
 
 	local result = nil

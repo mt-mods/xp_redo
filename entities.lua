@@ -50,7 +50,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 xp_redo.update_rank_entity = function(player, rank)
-	if not player or not player:is_player() then
+	if not player or not player:is_player() or not rank then
 		return
 	end
 
