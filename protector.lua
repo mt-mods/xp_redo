@@ -13,9 +13,25 @@ local update_formspec = function(meta)
 	)
 end
 
+local last_player_xp_map = {}
+
+function get_last_player_user_xp(name)
+	return last_player_xp_map[name] or 1000
+end
+
+function set_last_player_user_xp(name, xp)
+	last_player_xp_map[name] = xp
+end
+
+
 minetest.register_node("xp_redo:protector", {
 	description = "XP Protector",
-	tiles = {"xp_protect.png"},
+	tiles = {
+		"default_bronze_block.png^xp_protector_overlay.png",
+		"default_bronze_block.png^xp_protector_overlay.png",
+		"default_bronze_block.png^xp_protector_overlay.png^xp_protector_logo.png"
+	},
+
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
 
@@ -27,7 +43,8 @@ minetest.register_node("xp_redo:protector", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_int("xpthreshold", 10)
+		local owner = meta:get_string("owner")
+		meta:set_int("xpthreshold", get_last_player_user_xp(owner))
 		update_formspec(meta)
 	end,
 
@@ -41,6 +58,7 @@ minetest.register_node("xp_redo:protector", {
 				local xpthreshold = tonumber(fields.xpthreshold)
 				if xpthreshold ~= nil then
 					meta:set_int("xpthreshold", xpthreshold)
+					set_last_player_user_xp(name, xpthreshold)
 				end
 			end
 
@@ -111,7 +129,7 @@ end
 minetest.register_craft({
     output = 'xp_redo:protector',
     type = 'shapeless',
-    recipe = {"xp_redo:xpgate", "default:steel_ingot"}
+    recipe = {"default:bronzeblock", "default:steel_ingot"}
 })
 
 
