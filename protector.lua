@@ -15,7 +15,12 @@ end
 
 minetest.register_node("xp_redo:protector", {
 	description = "XP Protector",
-	tiles = {"xp_protect.png"},
+	tiles = {
+		"default_bronze_block.png^xp_protector_overlay.png",
+		"default_bronze_block.png^xp_protector_overlay.png",
+		"default_bronze_block.png^xp_protector_overlay.png^xp_protector_logo.png"
+	},
+
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
 
@@ -111,7 +116,7 @@ end
 minetest.register_craft({
     output = 'xp_redo:protector',
     type = 'shapeless',
-    recipe = {"xp_redo:xpgate", "default:steel_ingot"}
+    recipe = {"default:bronzeblock", "default:steel_ingot"}
 })
 
 
