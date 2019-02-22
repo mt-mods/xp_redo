@@ -38,13 +38,7 @@ minetest.register_node("xp_redo:protector", {
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
-		update_formspec(meta)
-	end,
-
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		local owner = meta:get_string("owner")
-		meta:set_int("xpthreshold", get_last_player_user_xp(owner))
+		meta:set_int("xpthreshold", get_last_player_user_xp(placer:get_player_name()))
 		update_formspec(meta)
 	end,
 
@@ -57,8 +51,8 @@ minetest.register_node("xp_redo:protector", {
 			if fields.xpthreshold then
 				local xpthreshold = tonumber(fields.xpthreshold)
 				if xpthreshold ~= nil then
-					meta:set_int("xpthreshold", xpthreshold)
-					set_last_player_user_xp(name, xpthreshold)
+					meta:set_int("xpthreshold", fields.xpthreshold)
+					set_last_player_user_xp(name, fields.xpthreshold)
 				end
 			end
 
