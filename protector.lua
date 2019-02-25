@@ -1,5 +1,5 @@
 local has_protector_mod = minetest.get_modpath("protector")
-
+local has_mesecons_mvps_mod = minetest.get_modpath("mesecons_mvps")
 
 
 local update_formspec = function(meta)
@@ -125,5 +125,9 @@ minetest.register_craft({
     type = 'shapeless',
     recipe = {"default:bronzeblock", "default:steel_ingot"}
 })
+
+if has_mesecons_mvps_mod then
+	mesecon.register_mvps_stopper("xp_redo:protector")
+end
 
 
