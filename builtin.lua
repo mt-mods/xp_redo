@@ -70,10 +70,10 @@ end)
 
 -- external accessible
 xp_redo.on_craft = function(itemstack, player)
-	if player and player:is_player() then
+	-- if player and player:is_player() then
 		-- limit craft reward to mitigate back-and-forth crafting for xp
-		 xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 1))
-	end
+		--  xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 1))
+	-- end
 end
 
 -- reward on crafting
