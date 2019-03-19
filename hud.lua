@@ -178,7 +178,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 		if is_hidden then
 			-- hidden player
-			player:set_nametag_attributes({ text="" })
+			player:set_nametag_attributes({ text=" " })
 
 		elseif is_admin then
 			-- player is an admin
