@@ -35,6 +35,7 @@ dofile(MP.."/highscore.lua")
 dofile(MP.."/chatcmd.lua")
 dofile(MP.."/builtin.lua")
 dofile(MP.."/protector.lua")
+dofile(MP.."/priv.lua")
 
 if has_ehlphabet_mod then
 	-- load highscore board
