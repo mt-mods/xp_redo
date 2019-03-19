@@ -1,6 +1,5 @@
 
 local MP = minetest.get_modpath("xp_redo")
-local has_ehlphabet_mod = minetest.get_modpath("ehlphabet")
 
 
 xp_redo = {
@@ -36,11 +35,5 @@ dofile(MP.."/chatcmd.lua")
 dofile(MP.."/builtin.lua")
 dofile(MP.."/protector.lua")
 dofile(MP.."/priv.lua")
-
-if has_ehlphabet_mod then
-	-- load highscore board
-	dofile(MP.."/highscore_board.lua")
-end
-
 
 print("[OK] XP-Redo")

@@ -4,5 +4,4 @@ doors?
 mobs_redo?
 mobs_animal?
 mobs_monster?
-ehlphabet?
 mesecons_mvps?
