@@ -63,7 +63,7 @@ xp_redo.update_rank_entity = function(player, rank)
 
 		local entity = minetest.add_entity(pos, rank.entityname)
 
-		entity:set_attach(player, "", {x=0,y=15,z=0}, {x=0,y=0,z=0})
+		entity:set_attach(player, "", {x=0,y=25,z=0}, {x=0,y=0,z=0})
 
 		data = {
 			entity = entity,
