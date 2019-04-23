@@ -1,4 +1,5 @@
 default
+invis?
 protector?
 doors?
 mobs_redo?

@@ -34,6 +34,5 @@ dofile(MP.."/highscore.lua")
 dofile(MP.."/chatcmd.lua")
 dofile(MP.."/builtin.lua")
 dofile(MP.."/protector.lua")
-dofile(MP.."/priv.lua")
 
 print("[OK] XP-Redo")
