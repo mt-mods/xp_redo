@@ -3,14 +3,6 @@
 -- bonus on placing
 minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
 	if player and player:is_player() and not player.is_fake_player then
-
-		--[[
-		if minetest.find_node_near(pos, 1, {"pipeworks:deployer_on", "pipeworks:deployer_off"}, false) then
-			-- don't count deployer actions
-			return
-		end
-		--]]
-
 		xp_redo.add_xp(player:get_player_name(), 1)
 	end
 end)
