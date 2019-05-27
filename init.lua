@@ -9,6 +9,9 @@ xp_redo = {
 	-- rank entity on top of player
 	disable_hover_entity = minetest.settings:get_bool("xp.display_hover_entity"),
 
+	-- various different xp rewards per ore
+	enable_dignode_rewards = minetest.settings:get_bool("xp.enable_dignode_rewards"),
+
 	hud = {
 		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
 		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)

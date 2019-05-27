@@ -28,13 +28,15 @@ local function register_node_reward(name, reward)
 	table.insert(node_reward_table, { name=name, reward=reward })
 end
 
-register_node_reward("default:stone_with_coal", 2)
-register_node_reward("default:stone_with_copper", 3)
-register_node_reward("default:stone_with_diamond", 10)
-register_node_reward("default:stone_with_gold", 5)
-register_node_reward("default:stone_with_iron", 2)
-register_node_reward("default:stone_with_mese", 10)
-register_node_reward("default:stone_with_tin", 2)
+if xp_redo.enable_dignode_rewards then
+	register_node_reward("default:stone_with_coal", 2)
+	register_node_reward("default:stone_with_copper", 3)
+	register_node_reward("default:stone_with_diamond", 10)
+	register_node_reward("default:stone_with_gold", 5)
+	register_node_reward("default:stone_with_iron", 2)
+	register_node_reward("default:stone_with_mese", 10)
+	register_node_reward("default:stone_with_tin", 2)
+end
 
 -- bonus on digging
 minetest.register_on_dignode(function(pos, oldnode, digger)
