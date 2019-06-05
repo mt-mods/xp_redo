@@ -3,6 +3,11 @@
 -- bonus on placing
 minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
 	if player and player:is_player() and not player.is_fake_player then
+		if newnode and newnode.name and string.match(newnode.name, "^digtron") then
+			-- digtron uncrating
+			return
+		end
+
 		xp_redo.add_xp(player:get_player_name(), 1)
 	end
 end)
@@ -46,6 +51,12 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 		end
 
 		if oldnode.name then
+			if string.find(oldnode.name, "^digtron") then
+				-- digtron crating
+				return
+			end
+
+
 			for _,entry in pairs(node_reward_table) do
 				if oldnode.name == entry.name then
 					reward = entry.reward
