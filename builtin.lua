@@ -15,7 +15,8 @@ end)
 -- malus on death
 minetest.register_on_dieplayer(function(player)
 	if player and player:is_player() then
-		xp_redo.add_xp(player:get_player_name(), -100)
+		-- xp_redo.add_xp(player:get_player_name(), -100)
+		-- TODO: check timeframe or something
 	end
 end);
 
