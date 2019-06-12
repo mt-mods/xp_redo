@@ -99,7 +99,7 @@ end)
 --	print(hp_change .. " - " .. user:get_hp())
 -- end);
 
-local craft_limiter = create_limiter(2)
+local craft_limiter = create_limiter(0.5)
 
 -- external accessible
 xp_redo.on_craft = function(itemstack, player)
