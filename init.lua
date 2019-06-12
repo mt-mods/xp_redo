@@ -27,6 +27,7 @@ if not xp_redo.disable_hover_entity then
 end
 
 -- dofile(MP.."/trophies.lua")
+dofile(MP.."/privs.lua")
 dofile(MP.."/stats.lua")
 dofile(MP.."/hud.lua")
 dofile(MP.."/functions.lua")
