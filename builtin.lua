@@ -1,4 +1,25 @@
 
+local function create_limiter(seconds)
+
+	local player_time_map = {}
+
+	return function(playername)
+
+		local last_call = player_time_map[playername]
+		local now = minetest.get_us_time()
+
+		if not last_call or now - last_call > (seconds * 1000000) then
+			-- either no last call or last call was longer than limit
+			
+			-- register new time
+			player_time_map[playername] = minetest.get_us_time()
+
+			return false -- not limited
+		end
+
+		return true -- limited
+	end
+end
 
 -- bonus on placing
 minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
@@ -12,11 +33,15 @@ minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack
 	end
 end)
 
+local death_limiter = create_limiter(60)
+
 -- malus on death
 minetest.register_on_dieplayer(function(player)
 	if player and player:is_player() then
-		-- xp_redo.add_xp(player:get_player_name(), -100)
-		-- TODO: check timeframe or something
+		if not death_limiter(player:get_player_name()) then
+			-- one death in 60 seconds
+			xp_redo.add_xp(player:get_player_name(), -1000)
+		end
 	end
 end);
 
@@ -74,12 +99,17 @@ end)
 --	print(hp_change .. " - " .. user:get_hp())
 -- end);
 
+local craft_limiter = create_limiter(2)
+
 -- external accessible
 xp_redo.on_craft = function(itemstack, player)
-	-- if player and player:is_player() then
-		-- limit craft reward to mitigate back-and-forth crafting for xp
-		--  xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 1))
-	-- end
+	 if player and player:is_player() then
+		-- limit invoke count
+		if not craft_limiter(player:get_player_name()) then
+			-- limit craft reward to mitigate back-and-forth crafting for xp
+			xp_redo.add_xp(player:get_player_name(), math.min(itemstack:get_count(), 10))
+		end
+	end
 end
 
 -- reward on crafting
