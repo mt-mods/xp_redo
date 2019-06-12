@@ -175,7 +175,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	if not xp_redo.disable_nametag then
 		local is_admin = minetest.check_player_privs(playername, {privs=true})
 		local is_moderator = minetest.check_player_privs(playername, {ban=true})
-		local is_hidden = minetest.chack_player_privs(playername, {hide_nametag=true})
+		local is_hidden = minetest.check_player_privs(playername, {hide_nametag=true})
 
 		if has_invis_mod then
 			is_hidden = invis.get(playername)
