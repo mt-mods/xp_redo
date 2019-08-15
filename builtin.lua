@@ -64,6 +64,16 @@ end
 -- bonus on digging
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
+		if not oldnode.name then
+			return
+		end
+
+		-- no reward for nodes that are fast to dig and add no tool wear
+		local dig_immediate = minetest.get_item_group(oldnode.name, "dig_immediate")
+		if dig_immediate == 2 or dig_immediate == 3 then
+			return
+		end
+
 		local reward = 1
 
 		local wield_item = digger:get_wielded_item()
@@ -76,17 +86,15 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 			end
 		end
 
-		if oldnode.name then
-			if string.find(oldnode.name, "^digtron") then
-				-- digtron crating
-				return
-			end
+		if string.find(oldnode.name, "^digtron") then
+			-- digtron crating
+			return
+		end
 
 
-			for _,entry in pairs(node_reward_table) do
-				if oldnode.name == entry.name then
-					reward = entry.reward
-				end
+		for _,entry in pairs(node_reward_table) do
+			if oldnode.name == entry.name then
+				reward = entry.reward
 			end
 		end
 
