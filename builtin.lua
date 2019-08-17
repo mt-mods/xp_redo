@@ -36,14 +36,16 @@ end)
 local death_limiter = create_limiter(60)
 
 -- malus on death
-minetest.register_on_dieplayer(function(player)
-	if player and player:is_player() then
-		if not death_limiter(player:get_player_name()) then
-			-- one death in 60 seconds
-			xp_redo.add_xp(player:get_player_name(), -1000)
+if xp_redo.enable_death_malus then
+	minetest.register_on_dieplayer(function(player)
+		if player and player:is_player() then
+			if not death_limiter(player:get_player_name()) then
+				-- one death in 60 seconds
+				xp_redo.add_xp(player:get_player_name(), -1000)
+			end
 		end
-	end
-end);
+	end);
+end
 
 local node_reward_table = {}
 
