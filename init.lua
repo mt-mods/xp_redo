@@ -12,6 +12,9 @@ xp_redo = {
 	-- various different xp rewards per ore
 	enable_dignode_rewards = minetest.settings:get_bool("xp.enable_dignode_rewards"),
 
+	-- xp penalty on player death
+	enable_death_malus = minetest.settings:get_bool("xp.enable_death_malus", true),
+
 	hud = {
 		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
 		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)
