@@ -17,7 +17,6 @@ end
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime
-	
 	if timer > 5 then
 		for _,player in ipairs(minetest.get_connected_players()) do
 			increase_stat(player, "played_time", timer)

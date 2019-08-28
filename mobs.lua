@@ -53,6 +53,5 @@ for _,entity in pairs(minetest.registered_entities) do
 
 			return originalPunch(self, hitter, time_from_last_punch, tool_capabilities, direction)
 		end
-		
 	end
 end

@@ -7,7 +7,6 @@ local export_ranks = function()
 	local data_string = minetest.write_json(xp_redo.ranks)
 	f:write(data_string)
 	io.close(f)
-	f = nil
 end
 
 if minetest.write_json then

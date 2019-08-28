@@ -7,7 +7,7 @@ minetest.register_chatcommand("givexp", {
     description = "Give or take experience points",
     privs = {givexp=true},
     func = function(caller, param)
-	local ign,ign,name,xp = string.find(param, "^([^%s]+)%s+([^%s]+)%s*$")
+	local _, _, name, xp = string.find(param, "^([^%s]+)%s+([^%s]+)%s*$")
 	if name == nil or xp == nil then
 		minetest.chat_send_player(caller, "syntax: /givexp <username> <xp>")
 		return

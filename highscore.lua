@@ -11,7 +11,6 @@ local write_file = function()
    local data_string = minetest.serialize(xp_redo.highscore)
    f:write(data_string)
    io.close(f)
-   f = nil
 end
 
 local f = io.open(fname, "r")
@@ -19,7 +18,6 @@ if f then   -- file exists
    local data_string = f:read("*all")
    xp_redo.highscore = minetest.deserialize(data_string)
    io.close(f)
-   f = nil
 else
    write_file()
 end
@@ -57,7 +55,7 @@ local update_highscore = function()
 end
 
 local timer = 0
-core.register_globalstep(function(dtime)
+minetest.register_globalstep(function(dtime)
    timer = timer + dtime;
    if timer >= 60 then
       update_highscore()

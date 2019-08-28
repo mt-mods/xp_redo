@@ -18,8 +18,6 @@ local level_up = function(player, rank)
 	local playername = player:get_player_name()
 	minetest.sound_play({name="xp_redo_generic", gain=0.25}, {to_player=playername})
 
-	--minetest.chat_send_all("Player '" .. playername .. "' leveled up to rank: '" .. rank.name .. "' with an xp of " .. rank.xp)
-
 	local one = player:hud_add({
 		hud_elem_type = "image",
 		name = "award_bg",
@@ -114,7 +112,7 @@ xp_redo.add_xp = function(playername, xp)
 		level_up(player, currentRank)
 	end
 
-	return sumXp	
+	return sumXp
 end
 
 

@@ -10,7 +10,7 @@ local function create_limiter(seconds)
 
 		if not last_call or now - last_call > (seconds * 1000000) then
 			-- either no last call or last call was longer than limit
-			
+
 			-- register new time
 			player_time_map[playername] = minetest.get_us_time()
 

@@ -93,7 +93,6 @@ function minetest.is_protected(pos, digger)
 	end
 
 	local xp = xp_redo.get_xp(digger)
-	
 	local nodes = minetest.find_nodes_in_area(
 		{x = pos.x - radius, y = pos.y - radius, z = pos.z - radius},
 		{x = pos.x + radius, y = pos.y + radius, z = pos.z + radius},
@@ -102,7 +101,6 @@ function minetest.is_protected(pos, digger)
 	for n = 1, #nodes do
 
 		local meta = minetest.get_meta(nodes[n])
-		local owner = meta:get_string("owner") or ""
 		local xpthreshold = meta:get_int("xpthreshold") or 0
 
 		if xpthreshold > xp then

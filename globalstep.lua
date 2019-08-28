@@ -5,7 +5,6 @@ minetest.register_globalstep(function(dtime)
 	if timer >= 1 then
 		local players = minetest.get_connected_players()
 		for i,player in pairs(players) do
-			local playername = player:get_player_name()
 			local xp = player:get_attribute("xp")
 
 			if xp == nil then

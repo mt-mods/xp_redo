@@ -85,7 +85,9 @@ local override_door = function(name, yoffset)
 
 			local gate = minetest.find_node_near(pos, 2, {"xp_redo:xpgate"})
 			if gate ~= nil then
-				minetest.log("action", "[xp-gate] clicked by player " .. clicker:get_player_name() .. " @ " .. ppos.x .. "/" .. ppos.y .. "/" .. ppos.z)
+				minetest.log("action", "[xp-gate] clicked by player " ..
+					clicker:get_player_name() .. " @ " ..
+					ppos.x .. "/" .. ppos.y .. "/" .. ppos.z)
 
 				-- xp limited door
 				local meta = minetest.get_meta(gate)
@@ -96,8 +98,8 @@ local override_door = function(name, yoffset)
 				local playername = clicker:get_player_name()
 				local xp = xp_redo.get_xp(playername)
 
-				local allowed = false
 				local err_msg
+				local allowed
 
 				if mode == 1 then
 					-- max xp allowed
