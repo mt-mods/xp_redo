@@ -172,7 +172,6 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	if not xp_redo.disable_nametag then
 		local is_admin = minetest.check_player_privs(playername, {privs=true})
-		local is_moderator = minetest.check_player_privs(playername, {ban=true})
 		local is_hidden = minetest.check_player_privs(playername, {hide_nametag=true})
 
 		if is_hidden then
@@ -187,13 +186,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 			})
 
 		else
-			local text = "[" .. rank.name .. "]"
-
-			if is_moderator then
-				text = text .. "[MOD]"
-			end
-
-			text = text .. " " .. playername
+			local text = "[" .. rank.name .. "] " .. playername
 
 			-- normal player
 			player:set_nametag_attributes({
