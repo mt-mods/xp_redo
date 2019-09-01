@@ -11,7 +11,7 @@ There is also a xpgate block which, when placed under a wooden door will only al
 
 ## Installation
 
-- Unzip the archive, rename the folder to "soccer" (**without the quotes**) and
+- Unzip the archive, rename the folder to xp_redo and
 place it in ..minetest/mods/
 
 - GNU/Linux: If you use a system-wide installation place
