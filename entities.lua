@@ -1,5 +1,3 @@
-
-
 local get_entity_name = function(rank)
 	return minetest.get_current_modname() .. ":xp" .. rank.xp
 end
@@ -59,7 +57,7 @@ xp_redo.update_rank_entity = function(player, rank)
 
 	-- TODO: check new rank
 	if not data then
-		local pos = player:getpos()
+		local pos = player:get_pos()
 
 		local entity = minetest.add_entity(pos, rank.entityname)
 
