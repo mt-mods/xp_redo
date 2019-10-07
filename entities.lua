@@ -6,9 +6,16 @@ xp_redo.register_rank_entity = function(rank)
 	rank.entityname = get_entity_name(rank)
 	minetest.register_entity(rank.entityname, {
 		initial_properties = {
-			visual = "upright_sprite",
+			visual = "cube",
 			visual_size = {x=0.5,y=0.5},
-			textures = {rank.icon, rank.icon},
+			textures = {
+				rank.icon,
+				rank.icon,
+				rank.icon,
+				rank.icon,
+				rank.icon,
+				rank.icon
+			},
 			physical = false,
 			collide_with_objects = false,
 			pointable = false,
