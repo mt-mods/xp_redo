@@ -1,9 +1,8 @@
-unused_args = false
-allow_defined_top = true
 
 globals = {
 	"luaentity",
-	"minetest"
+	"minetest",
+	"xp_redo"
 }
 
 read_globals = {
@@ -16,5 +15,5 @@ read_globals = {
 	"dump",
 
 	-- deps
-	"default", "mesecon"
+	"default", "mesecon", "hb"
 }

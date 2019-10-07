@@ -1,3 +1,12 @@
+local has_hudbars = minetest.get_modpath("hudbars")
+
+if has_hudbars then
+	hb.register_hudbar("xp_progress", 0xFFFFFF, "XP", {
+		icon = "hudbars_icon_breath.png",
+		bgicon = "hudbars_bar_background.png",
+		bar = "hudbars_bar_breath.png"
+		}, 0, 100, false)
+end
 
 local hud = {} -- playername -> data
 
@@ -5,6 +14,7 @@ local HUD_POSITION = {x = xp_redo.hud.posx, y = xp_redo.hud.posy}
 local HUD_ALIGNMENT = {x = 1, y = 0}
 
 local HUD_DISPLAY_STATE_NAME = "hud_state"
+
 
 -- http://lua-users.org/lists/lua-l/2006-01/msg00525.html
 local function format_thousand(v)
@@ -60,25 +70,30 @@ local setup_hud = function(player)
 
 	-- xp progress
 
-	local XP_PROGRESS_OFFSET = {x = 0, y = 40}
+	if has_hudbars then
+		hb.init_hudbar(player, "xp_progress")
 
-	data.background = player:hud_add({
-		hud_elem_type = "image",
-		position = HUD_POSITION,
-		offset = XP_PROGRESS_OFFSET,
-		text = "xp_progress_bg.png",
-		alignment = HUD_ALIGNMENT,
-		scale = {x = 1, y = 1}
-	})
+	else
+		local XP_PROGRESS_OFFSET = {x = 0, y = 40}
 
-	data.progressimg = player:hud_add({
-		hud_elem_type = "image",
-		position = HUD_POSITION,
-		offset = XP_PROGRESS_OFFSET,
-		text = "xp_progress_fg.png",
-		alignment = HUD_ALIGNMENT,
-		scale = {x = 0, y = 1}
-	})
+		data.background = player:hud_add({
+			hud_elem_type = "image",
+			position = HUD_POSITION,
+			offset = XP_PROGRESS_OFFSET,
+			text = "xp_progress_bg.png",
+			alignment = HUD_ALIGNMENT,
+			scale = {x = 1, y = 1}
+		})
+
+		data.progressimg = player:hud_add({
+			hud_elem_type = "image",
+			position = HUD_POSITION,
+			offset = XP_PROGRESS_OFFSET,
+			text = "xp_progress_fg.png",
+			alignment = HUD_ALIGNMENT,
+			scale = {x = 0, y = 1}
+		})
+	end
 
 	hud[playername] = data
 
@@ -154,7 +169,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	if next_rank ~= nil then
 		infoTxt = infoTxt .. "/" .. format_thousand(next_rank.xp)
 		if next_rank.xp > xp then
-			-- something to achieve
+			-- progress from 0 to 100
 			progress = tonumber(xp / next_rank.xp * 100)
 		end
 	end
@@ -168,7 +183,11 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	player:hud_change(data.rankimg, "text", rank.icon)
 
-	player:hud_change(data.progressimg, "scale", { x=progress, y=1 })
+	if has_hudbars then
+		hb.change_hudbar(player, "xp_progress", progress)
+	else
+		player:hud_change(data.progressimg, "scale", { x=progress, y=1 })
+	end
 
 	if not xp_redo.disable_nametag then
 		local is_admin = minetest.check_player_privs(playername, {privs=true})
