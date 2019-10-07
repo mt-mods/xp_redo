@@ -22,7 +22,7 @@ local function create_limiter(seconds)
 end
 
 -- bonus on placing
-minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
+minetest.register_on_placenode(function(_, newnode, player)
 	if player and player:is_player() and not player.is_fake_player then
 		if newnode and newnode.name and string.match(newnode.name, "^digtron") then
 			-- digtron uncrating
@@ -64,7 +64,7 @@ if xp_redo.enable_dignode_rewards then
 end
 
 -- bonus on digging
-minetest.register_on_dignode(function(pos, oldnode, digger)
+minetest.register_on_dignode(function(_, oldnode, digger)
 	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
 		if not oldnode.name then
 			return
@@ -123,7 +123,6 @@ xp_redo.on_craft = function(itemstack, player)
 end
 
 -- reward on crafting
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+minetest.register_on_craft(function(itemstack, player)
 	xp_redo.on_craft(itemstack, player)
 end)
-

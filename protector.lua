@@ -15,11 +15,11 @@ end
 
 local last_player_xp_map = {}
 
-function get_last_player_user_xp(name)
+local function get_last_player_user_xp(name)
 	return last_player_xp_map[name] or 1000
 end
 
-function set_last_player_user_xp(name, xp)
+local function set_last_player_user_xp(name, xp)
 	last_player_xp_map[name] = xp
 end
 
@@ -42,7 +42,7 @@ minetest.register_node("xp_redo:protector", {
 		update_formspec(meta)
 	end,
 
-	on_receive_fields = function(pos, formname, fields, sender)
+	on_receive_fields = function(pos, _, fields, sender)
 		local meta = minetest.get_meta(pos)
 		local name = sender:get_player_name()
 
@@ -60,7 +60,7 @@ minetest.register_node("xp_redo:protector", {
 		end
 	end,
 
-	on_punch = function(pos, node, puncher)
+	on_punch = function(pos, _, puncher)
 		if minetest.is_protected(pos, puncher:get_player_name()) then
 			return
 		end
@@ -127,5 +127,3 @@ minetest.register_craft({
 if has_mesecons_mvps_mod then
 	mesecon.register_mvps_stopper("xp_redo:protector")
 end
-
-

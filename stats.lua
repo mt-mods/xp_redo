@@ -26,13 +26,13 @@ minetest.register_globalstep(function(dtime)
 end)
 
 
-minetest.register_on_dignode(function(pos, oldnode, player)
+minetest.register_on_dignode(function(_, _, player)
 	if player and player:is_player() then
 		increase_stat(player, "digged_nodes", 1)
 	end
 end)
 
-minetest.register_on_placenode(function(pos, newnode, player, oldnode, itemstack)
+minetest.register_on_placenode(function(_, _, player)
 	if player and player:is_player() then
 		increase_stat(player, "placed_nodes", 1)
 	end
@@ -42,7 +42,6 @@ minetest.register_on_dieplayer(function(player)
 	increase_stat(player, "died", 1)
 end)
 
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+minetest.register_on_craft(function(itemstack, player)
 	increase_stat(player, "crafted", itemstack:get_count())
 end)
-

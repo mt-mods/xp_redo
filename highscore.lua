@@ -25,12 +25,11 @@ end
 
 local update_highscore = function()
 	local players = minetest.get_connected_players()
-	-- TODO: concurrency???
 
 	for _,player in pairs(players) do
 		local name = player:get_player_name()
 		local found = false
-		for i,entry in pairs(xp_redo.highscore) do
+		for _,entry in pairs(xp_redo.highscore) do
 			if entry.name == name then
 				-- connected player already exists in highscore, update value
 				entry.xp = tonumber(player:get_attribute("xp")) or 0

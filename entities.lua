@@ -21,7 +21,7 @@ xp_redo.register_rank_entity = function(rank)
 			pointable = false,
 			static_save = false
 		},
-		on_step = function(self, dtime)
+		on_step = function(self)
 			if self.object.get_attach and not self.object:get_attach() then
 				self.object:remove()
 			end

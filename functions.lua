@@ -5,7 +5,7 @@ xp_redo.get_rank = function(xp)
 	end
 
 	local result = nil
-	for i,rank in pairs(xp_redo.ranks) do
+	for _,rank in pairs(xp_redo.ranks) do
 		if xp >= rank.xp then
 			result = rank
 		end
@@ -127,7 +127,7 @@ xp_redo.get_next_rank = function(xp, current_rank)
 	end
 
 	local result = nil
-	for i,rank in pairs(xp_redo.ranks) do
+	for _,rank in pairs(xp_redo.ranks) do
 		if (result ~= nil and rank.xp > current_rank.xp and rank.xp < result.xp) or
 		   (result == nil and rank.xp > current_rank.xp) then
 			result = rank
@@ -136,5 +136,3 @@ xp_redo.get_next_rank = function(xp, current_rank)
 
 	return result
 end
-
-

@@ -36,7 +36,7 @@ minetest.register_node("xp_redo:xpgate", {
 		update_formspec(meta)
 	end,
 
-	on_receive_fields = function(pos, formname, fields, sender)
+	on_receive_fields = function(pos, _, fields, sender)
 		local meta = minetest.get_meta(pos)
 		local name = sender:get_player_name()
 
@@ -154,4 +154,3 @@ minetest.register_craft({
 		{'doors:door_steel', '', 'doors:door_wood'}
 	}
 })
-
