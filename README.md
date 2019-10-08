@@ -133,6 +133,10 @@ See LICENSE.txt
 
 * Trophy model/texture source: https://gitlab.com/VanessaE/homedecor_modpack/
 
+* xp_mese_crystal.png
+* https://github.com/minetest/minetest_game mods/default/textures/default_mese_crystal.png
+
+
 # Pull requests / bugs
 
 I'm happy for any bug reports or pull requests (code and textures).

@@ -2,7 +2,7 @@ local has_hudbars = minetest.get_modpath("hudbars")
 
 if has_hudbars then
 	hb.register_hudbar("xp_progress", 0xFFFFFF, "XP", {
-		icon = "hudbars_icon_breath.png",
+		icon = "xp_mese_crystal.png",
 		bgicon = "hudbars_bar_background.png",
 		bar = "hudbars_bar_breath.png"
 		}, 0, 100, false)
