@@ -20,7 +20,7 @@ end
 minetest.register_node("xp_redo:xpgate", {
 	description = "XP Gateway",
 	tiles = {"xp_gate.png"},
-	groups = {cracky=3,oddly_breakable_by_hand=3},
+	groups = {cracky=3,oddly_breakable_by_hand=3,epic=1},
 	drop = "xp_redo:xpgate",
 	sounds = default.node_sound_glass_defaults(),
 
@@ -69,7 +69,18 @@ minetest.register_node("xp_redo:xpgate", {
 		local name = player:get_player_name()
 
 		return name == meta:get_string("owner")
-	end
+	end,
+
+	epic = {
+		on_enter = function(_, meta, player, ctx)
+			local xp_threshold = meta:get_int("xp")
+			local name = player:get_player_name()
+			local xp = xp_redo.get_xp(name)
+			if xp >= xp_threshold then
+				ctx.next()
+			end
+		end
+	}
 })
 
 local override_door = function(name, yoffset)
