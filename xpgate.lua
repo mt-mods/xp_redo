@@ -78,8 +78,6 @@ minetest.register_node("xp_redo:xpgate", {
 			local xp = xp_redo.get_xp(name)
 			if xp >= xp_threshold then
 				ctx.next()
-			else
-				ctx.abort("xp required: " .. xp_threshold)
 			end
 		end
 	}
