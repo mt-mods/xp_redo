@@ -15,5 +15,6 @@ read_globals = {
 	"dump",
 
 	-- deps
-	"default", "mesecon", "hb"
+	"default", "mesecon", "hb",
+	"screwdriver"
 }
