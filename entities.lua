@@ -2,25 +2,29 @@ local get_entity_name = function(rank)
 	return minetest.get_current_modname() .. ":xp" .. rank.xp
 end
 
+xp_redo.create_entity_properties = function(rank)
+	return {
+		visual = "cube",
+		visual_size = {x=0.5,y=0.5},
+		textures = {
+			rank.icon,
+			rank.icon,
+			rank.icon,
+			rank.icon,
+			rank.icon,
+			rank.icon
+		},
+		physical = false,
+		collide_with_objects = false,
+		pointable = false,
+		static_save = false
+	}
+end
+
 xp_redo.register_rank_entity = function(rank)
 	rank.entityname = get_entity_name(rank)
 	minetest.register_entity(rank.entityname, {
-		initial_properties = {
-			visual = "cube",
-			visual_size = {x=0.5,y=0.5},
-			textures = {
-				rank.icon,
-				rank.icon,
-				rank.icon,
-				rank.icon,
-				rank.icon,
-				rank.icon
-			},
-			physical = false,
-			collide_with_objects = false,
-			pointable = false,
-			static_save = false
-		},
+		initial_properties = xp_redo.create_entity_properties(rank),
 		on_step = function(self)
 			if self.object.get_attach and not self.object:get_attach() then
 				self.object:remove()
