@@ -24,6 +24,7 @@ minetest.register_node("xp_redo:xpgate", {
 	drop = "xp_redo:xpgate",
 	sounds = default.node_sound_glass_defaults(),
 	on_rotate = screwdriver.rotate_simple,
+	paramtype2 = "facedir",
 
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
