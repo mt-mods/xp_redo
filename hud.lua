@@ -5,7 +5,7 @@ if has_hudbars then
 		icon = "xp_mese_crystal.png",
 		bgicon = "hudbars_bar_background.png",
 		bar = "hudbars_bar_breath.png"
-		}, 0, 100, false)
+		}, 0, 100, false, "@1: @2%")
 end
 
 local hud = {} -- playername -> data
