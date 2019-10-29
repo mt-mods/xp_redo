@@ -71,7 +71,7 @@ local setup_hud = function(player)
 	-- xp progress
 
 	if has_hudbars then
-		hb.init_hudbar(player, "xp_progress")
+		hb.init_hudbar(player, "xp_progress", 0, nil)
 
 	else
 		local XP_PROGRESS_OFFSET = {x = 0, y = 40}
