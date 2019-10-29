@@ -76,9 +76,15 @@ minetest.register_node("xp_redo:xpgate", {
 	epic = {
 		on_enter = function(_, meta, player, ctx)
 			local xp_threshold = meta:get_int("xpthreshold")
+			local mode = meta:get_int("mode")
+
 			local name = player:get_player_name()
 			local xp = xp_redo.get_xp(name)
-			if xp >= xp_threshold then
+			if mode == 1 and xp <= xp_threshold then
+				-- max xp
+				ctx.next()
+			elseif mode == 0 and xp >= xp_threshold then
+				-- min xp
 				ctx.next()
 			end
 		end
