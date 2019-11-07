@@ -41,4 +41,8 @@ dofile(MP.."/chatcmd.lua")
 dofile(MP.."/builtin.lua")
 dofile(MP.."/protector.lua")
 
+if minetest.settings:get_bool("enable_xp_redo_integration_test") then
+        dofile(MP.."/integration_test.lua")
+end
+
 print("[OK] XP-Redo")
