@@ -41,6 +41,10 @@ dofile(MP.."/chatcmd.lua")
 dofile(MP.."/builtin.lua")
 dofile(MP.."/protector.lua")
 
+if minetest.get_modpath("areas") then
+	dofile(MP.."/areas.lua")
+end
+
 if minetest.settings:get_bool("enable_xp_redo_integration_test") then
         dofile(MP.."/integration_test.lua")
 end

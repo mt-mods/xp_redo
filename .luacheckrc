@@ -16,5 +16,5 @@ read_globals = {
 
 	-- deps
 	"default", "mesecon", "hb",
-	"screwdriver"
+	"screwdriver", "areas"
 }
