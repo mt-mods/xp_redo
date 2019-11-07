@@ -1,5 +1,0 @@
-
-following textures by TenPlus1 (CC BY-SA 3.0):
-  xp_protector_logo.png
-  xp_protector_display.png
-  xp_protector_overlay.png
