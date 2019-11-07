@@ -9,7 +9,9 @@ cat <<EOF > ${CFG}
  enable_xp_redo_integration_test = true
 EOF
 
-mkdir -p ${WORLDDIR}
+mkdir -p ${WORLDDIR}/worldmods
+git clone --depth=1 https://github.com/minetest-mods/areas ${WORLDDIR}/worldmods/areas
+
 chmod 777 ${MTDIR} -R
 docker run --rm -it \
 	-v ${CFG}:/etc/minetest/minetest.conf:ro \
