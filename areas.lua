@@ -70,7 +70,7 @@ minetest.register_chatcommand("area_xp_min", {
         xp_area = {}
       end
 
-      xp_area.min = xp
+      xp_area.min = tonumber(xp)
       xp_areas[id] = xp_area
 
       save_xp_areas()
