@@ -29,6 +29,15 @@ minetest.register_on_placenode(function(_, newnode, player)
 			return
 		end
 
+		local wield_item = player:get_wielded_item()
+		if wield_item then
+			local name = wield_item:get_name()
+			-- check for replacer
+			if name == "replacer:replacer" then
+				return
+			end
+		end
+
 		xp_redo.add_xp(player:get_player_name(), 1)
 	end
 end)
@@ -84,6 +93,10 @@ minetest.register_on_dignode(function(_, oldnode, digger)
 			-- check for mining laser/drill
 			if string.find(name, "technic%:laser") or string.find(name, "technic%:mining") then
 				-- no reward
+				return
+			end
+			-- check for replacer
+			if name == "replacer:replacer" then
 				return
 			end
 		end
