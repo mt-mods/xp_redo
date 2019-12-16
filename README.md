@@ -1,5 +1,8 @@
 ## Minetest XP mod (xp_redo)
 
+![](https://github.com/mt-mods/xp_redo/workflows/luacheck/badge.svg)
+
+
 Minetest mod for player experience management (xp)
 It adds an xp counter per player and ranks according to your xp level.
 The xp level, your rank and a progress bar to the next rank will show up in your hud.
