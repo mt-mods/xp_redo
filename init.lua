@@ -21,6 +21,7 @@ xp_redo = {
 	}
 }
 
+dofile(MP.."/hooks.lua")
 dofile(MP.."/ranks.lua")
 dofile(MP.."/json.lua") --json export
 

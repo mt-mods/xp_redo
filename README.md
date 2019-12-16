@@ -93,6 +93,24 @@ ranks are held in **xp_redo.ranks** as a table.
 
 Returns the rankDef for given xp amount
 
+### Hooks
+
+```lua
+xp_redo.register_hook({
+  xp_change = function(playername, xp)
+    -- new xp value
+  end,
+
+  rank_change = function(playername, xp, rank)
+    -- new rank
+  end,
+
+  stat_change = function(playername, name, value)
+    -- see stats.lua
+  end
+})
+```
+
 ## XP
 
 ### xp_redo.get_xp(playername)

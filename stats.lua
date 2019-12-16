@@ -11,7 +11,10 @@ local increase_stat = function(player, name, value)
 		count = 0
 	end
 
-	player:set_attribute(name, count + value)
+	local newValue = count + value
+
+	player:set_attribute(name, newValue)
+	xp_redo.run_hook("stat_change", { player:get_player_name(), name, newValue })
 end
 
 local timer = 0
