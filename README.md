@@ -52,6 +52,7 @@ Remove 100 XP points from player somedude:
 ## Dependencies
 
 - default
+
 ### Optional dependencies
 
 - doors
@@ -59,7 +60,16 @@ Remove 100 XP points from player somedude:
 - mobs_animal
 - mobs_monster
 
-## Builtin XP events
+# Areas integration
+
+There are additional commands available if the `areas` mod is available:
+
+* `/area_xp_set_min <id> <xp>` assign a min-value that a aplayer needs to interact with the area
+* `/area_xp_get_min <id>` returns the min-value, if any for that area
+
+For this to work the area has to be opened with `/area_open <id>`
+
+# Builtin XP events
 
 ## Digging
 

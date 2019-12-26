@@ -109,7 +109,7 @@ xp_redo.add_xp = function(playername, xp)
 
 	local previousRank = xp_redo.get_rank(currentXp)
 	local currentRank = xp_redo.get_rank(sumXp)
-	if currentRank.xp > previousRank.xp then
+	if currentRank and currentRank.xp > previousRank.xp then
 		-- level up
 		xp_redo.run_hook("rank_change", { playername, sumXp, currentRank })
 		level_up(player, currentRank)
