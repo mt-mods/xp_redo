@@ -42,7 +42,7 @@ local function save_xp_areas()
 	f:close()
 end
 
-load_xp_areas()
+xp_areas = load_xp_areas()
 
 -- chat
 
