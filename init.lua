@@ -21,6 +21,15 @@ xp_redo = {
 	}
 }
 
+-- optional mapserver-bridge stuff below
+local http = minetest.request_http_api()
+
+if http then
+	print("Enabling discord webhook for XP-Redo")
+	local webhook = dofile(MP.."/webhook.lua")
+	webhook(http)
+end
+
 dofile(MP.."/hooks.lua")
 dofile(MP.."/ranks.lua")
 dofile(MP.."/json.lua") --json export

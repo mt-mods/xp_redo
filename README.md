@@ -84,6 +84,18 @@ Every mob punch gives you the amount of damage on the mob in xp
 See:
 * https://github.com/thomasrudin-mt/xp_redo_ranks_ores
 
+## Settings
+
+* **xp_redo.discord.webhook_url** discord webhook url (optional)
+* **xp_redo.discord.texture_baseurl** baseurl for the webhook avatar image (optional)
+
+For the webhook, the mod has to be in the `secure.http_mods` setting:
+
+minetest.conf
+```
+secure.http_mods = xp_redo
+```
+
 ## Lua api
 
 ## Ranks

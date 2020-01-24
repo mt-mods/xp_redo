@@ -16,14 +16,7 @@ local HUD_ALIGNMENT = {x = 1, y = 0}
 local HUD_DISPLAY_STATE_NAME = "hud_state"
 
 
--- http://lua-users.org/lists/lua-l/2006-01/msg00525.html
-local function format_thousand(v)
-	local s = string.format("%d", math.floor(v))
-	local pos = string.len(s) % 3
-	if pos == 0 then pos = 3 end
-	return string.sub(s, 1, pos)
-		.. string.gsub(string.sub(s, pos+1), "(...)", "'%1")
-end
+
 
 local setup_hud = function(player)
 	local playername = player:get_player_name()
@@ -163,11 +156,11 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 		return
 	end
 
-	local infoTxt = "XP: " .. format_thousand(xp)
+	local infoTxt = "XP: " .. xp_redo.format_thousand(xp)
 	local progress = 100
 
 	if next_rank ~= nil then
-		infoTxt = infoTxt .. "/" .. format_thousand(next_rank.xp)
+		infoTxt = infoTxt .. "/" .. xp_redo.format_thousand(next_rank.xp)
 		if next_rank.xp > xp then
 			-- progress from 0 to 100
 			progress = tonumber(xp / next_rank.xp * 100)
