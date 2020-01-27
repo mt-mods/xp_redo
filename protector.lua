@@ -117,12 +117,12 @@ function minetest.is_protected(pos, digger)
 	return old_is_protected(pos, digger)
 end
 
-if has_protector_mod then
+if has_protector_mod and protector.tool.register_protector then
 	protector.tool:register_protector('xp_redo:protector', {
 		nodes = nil, -- Compatible nodes for protector tool, uses same on_place, radius, etc.
 		param2 = nil, -- Default param2 for protector
 		on_place = nil, -- on_place callback, protector is about to be placed
-		after_place = function(user, meta, src_meta, nodename)
+		after_place = function(user, meta, src_meta)
 			-- copy members across if holding sneak when using tool
 			if user:get_player_control().sneak then
 				-- get priv on source protector / set target protector metadata
