@@ -117,7 +117,7 @@ function minetest.is_protected(pos, digger)
 	return old_is_protected(pos, digger)
 end
 
-if has_protector_mod and protector.tool.register_protector then
+if has_protector_mod and protector.tool and protector.tool.register_protector then
 	protector.tool:register_protector('xp_redo:protector', {
 		nodes = nil, -- Compatible nodes for protector tool, uses same on_place, radius, etc.
 		param2 = nil, -- Default param2 for protector
