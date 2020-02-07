@@ -32,8 +32,10 @@ minetest.register_on_placenode(function(_, newnode, player)
 		local wield_item = player:get_wielded_item()
 		if wield_item then
 			local name = wield_item:get_name()
-			-- check for replacer
-			if name == "replacer:replacer" then
+			-- check for technic replacer
+			-- since placing single node takes same effort as placing without
+			-- replacer, it seems fair to give XP in single mode
+			if name == "replacer:replacer_technic" and "single" ~= wield_item:get_meta():get_string("mode") then
 				return
 			end
 		end
@@ -95,8 +97,8 @@ minetest.register_on_dignode(function(_, oldnode, digger)
 				-- no reward
 				return
 			end
-			-- check for replacer
-			if name == "replacer:replacer" then
+			-- check for technic replacer
+			if name == "replacer:replacer_technic" then
 				return
 			end
 		end
