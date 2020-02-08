@@ -97,6 +97,10 @@ minetest.register_on_dignode(function(_, oldnode, digger)
 				-- no reward
 				return
 			end
+			-- check for basic replacer
+			if "replacer:replacer" == name then
+				return
+			end
 			-- check for technic replacer
 			if name == "replacer:replacer_technic" then
 				return
