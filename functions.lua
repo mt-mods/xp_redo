@@ -76,13 +76,10 @@ xp_redo.get_xp = function(playername)
 		return 0
 	end
 
-	local currentXpStr = player:get_attribute("xp")
-	local currentXp = 0
-	if currentXpStr ~= nil then
-		currentXp = tonumber(currentXpStr)
-		if currentXp == nil or currentXp < 0 then
-			currentXp = 0
-		end
+	local meta = player:get_meta()
+	local currentXp = meta:get_int("xp")
+	if currentXp == nil or currentXp < 0 then
+		currentXp = 0
 	end
 
 	return currentXp
@@ -111,7 +108,7 @@ xp_redo.add_xp = function(playername, xp)
 		sumXp = 0
 	end
 
-	player:set_attribute("xp", sumXp)
+	player:get_meta():set_int("xp", sumXp)
 
 	xp_redo.run_hook("xp_change", { playername, sumXp })
 
