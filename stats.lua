@@ -1,19 +1,19 @@
 
-
 local increase_stat = function(player, name, value)
-	if player == nil or player.get_attribute == nil then
+	if player == nil or player.get_meta == nil then
 		-- fake player
 		return
 	end
 
-	local count = player:get_attribute(name)
+	local meta = player:get_meta()
+	local count = meta:get_int(name)
 	if not count then
 		count = 0
 	end
 
 	local newValue = count + value
 
-	player:set_attribute(name, newValue)
+	meta:set_int(name, newValue)
 	xp_redo.run_hook("stat_change", { player:get_player_name(), name, newValue })
 end
 
@@ -27,7 +27,6 @@ minetest.register_globalstep(function(dtime)
 		timer = 0
 	end
 end)
-
 
 minetest.register_on_dignode(function(_, _, player)
 	if player and player:is_player() then
