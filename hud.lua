@@ -147,6 +147,10 @@ local get_color = function(r,g,b)
 	return b + (g * 256) + (r * 256 * 256)
 end
 
+local function get_hex_color(colorSpec)
+	return string.format("#%x%x%x", colorSpec.r, colorSpec.g, colorSpec.b)
+end
+
 xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	local playername = player:get_player_name()
@@ -185,28 +189,23 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	if not xp_redo.disable_nametag then
 		local is_admin = minetest.check_player_privs(playername, {privs=true})
 		local is_hidden = minetest.check_player_privs(playername, {hide_nametag=true})
+		local text
 
 		if is_hidden then
 			-- hidden player
-			player:set_nametag_attributes({ text=" " })
+			text = ""
 
 		elseif is_admin then
 			-- player is an admin
-			player:set_nametag_attributes({
-				color = {r=255, g=0, b=0},
-				text = playername
-			})
+			text = minetest.colorize("#ff0000", playername)
 
 		else
-			local text = "[" .. rank.name .. "] " .. playername
-
 			-- normal player
-			player:set_nametag_attributes({
-				color = rank.color,
-				text = text
-			})
+			text = minetest.colorize(get_hex_color(rank.color), rank.name) .. " " .. playername
 
 		end
+
+		player:set_nametag_attributes({ text = text })
 	end
 end
 
