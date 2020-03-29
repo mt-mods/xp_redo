@@ -1,4 +1,6 @@
 
+local has_woodcutting_mod = minetest.get_modpath("woodcutting")
+
 local function create_limiter(seconds)
 
 	local player_time_map = {}
@@ -78,6 +80,11 @@ end
 minetest.register_on_dignode(function(_, oldnode, digger)
 	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
 		if not oldnode.name then
+			return
+		end
+
+		if has_woodcutting_mod and woodcutting.process_runtime[digger:get_player_name()] then
+			-- woodcutting active, skip reward
 			return
 		end
 
