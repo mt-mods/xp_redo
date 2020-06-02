@@ -44,6 +44,12 @@ end
 
 xp_areas = load_xp_areas()
 
+-- cleanup for removed areas
+areas:registerOnRemove(function(id)
+  xp_areas[id] = nil
+  asave_xp_areas()
+end)
+
 -- chat
 
 minetest.register_chatcommand("area_xp_set_min", {
