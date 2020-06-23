@@ -18,7 +18,9 @@ xp_redo = {
 	hud = {
 		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
 		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)
-	}
+	},
+
+	HUD_DISPLAY_STATE_NAME = "hud_state"
 }
 
 -- optional mapserver-bridge stuff below

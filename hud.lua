@@ -13,11 +13,6 @@ local hud = {} -- playername -> data
 local HUD_POSITION = {x = xp_redo.hud.posx, y = xp_redo.hud.posy}
 local HUD_ALIGNMENT = {x = 1, y = 0}
 
-local HUD_DISPLAY_STATE_NAME = "hud_state"
-
-
-
-
 local setup_hud = function(player)
 	local playername = player:get_player_name()
 	if hud[playername] then
@@ -26,7 +21,7 @@ local setup_hud = function(player)
 
 	local data = {}
 
-	player:set_attribute(HUD_DISPLAY_STATE_NAME, "on")
+	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "on")
 
 	data.info = player:hud_add({
 		hud_elem_type = "text",
@@ -96,7 +91,7 @@ local remove_hud = function(player)
 	local playername = player:get_player_name()
 	local data = hud[playername]
 
-	player:set_attribute(HUD_DISPLAY_STATE_NAME, "off")
+	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "off")
 
 
 	if not data then
@@ -210,7 +205,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 end
 
 minetest.register_on_joinplayer(function(player)
-	local state = player:get_attribute(HUD_DISPLAY_STATE_NAME)
+	local state = player:get_attribute(xp_redo.HUD_DISPLAY_STATE_NAME)
 	if not state or state == "on" then
 		setup_hud(player)
 	end

@@ -117,7 +117,11 @@ xp_redo.add_xp = function(playername, xp)
 	if currentRank and currentRank.xp > previousRank.xp then
 		-- level up
 		xp_redo.run_hook("rank_change", { playername, sumXp, currentRank })
-		level_up(player, currentRank)
+
+		local state = player:get_attribute(xp_redo.HUD_DISPLAY_STATE_NAME)
+		if state and state == "on" then
+			level_up(player, currentRank)
+		end
 	end
 
 	return sumXp
