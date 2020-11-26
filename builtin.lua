@@ -52,9 +52,36 @@ local death_limiter = create_limiter(60)
 if xp_redo.enable_death_malus then
 	minetest.register_on_dieplayer(function(player)
 		if player and player:is_player() then
-			if not death_limiter(player:get_player_name()) then
+
+			local playername = player:get_player_name()
+
+			if not death_limiter(playername) then
 				-- one death in 60 seconds
-				xp_redo.add_xp(player:get_player_name(), -1000)
+
+				local xp = player:get_meta():get_string("xp")
+
+				if xp == nil then
+					xp = 0
+					player:get_meta():set_string("xp", xp)
+				else
+					xp = tonumber(xp)
+				end
+
+				local rank = xp_redo.get_rank(xp)
+				local next_rank = xp_redo.get_next_rank(xp, rank)
+
+				local subtract = tonumber((next_rank.xp - rank.xp ) /10 ) -- 10% of current level
+
+				if xp > rank.xp + subtract then
+					xp_redo.add_xp(playername, -subtract)
+				else
+					subtract = xp - rank.xp
+					xp_redo.add_xp(playername, -subtract)
+				end
+
+				local text = "You lost " .. subtract .. " XP!"
+				minetest.chat_send_player(playername, minetest.colorize("#98ff98",text))
+
 			end
 		end
 	end);

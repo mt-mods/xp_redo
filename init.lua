@@ -3,11 +3,14 @@ local MP = minetest.get_modpath("xp_redo")
 
 
 xp_redo = {
+	-- rank icon display in HUD
+	disable_hud_icon = minetest.settings:get_bool("xp.display_hud_icon", false),
+
 	-- nametag display (player:set_nametag_attributes)
 	disable_nametag = minetest.settings:get_bool("xp.display_nametag"),
 
 	-- rank entity on top of player
-	disable_hover_entity = minetest.settings:get_bool("xp.disable_hover_entity"),
+	disable_hover_entity = minetest.settings:get_bool("xp.display_hover_entity"),
 
 	-- various different xp rewards per ore
 	enable_dignode_rewards = minetest.settings:get_bool("xp.enable_dignode_rewards"),
@@ -18,9 +21,7 @@ xp_redo = {
 	hud = {
 		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
 		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)
-	},
-
-	HUD_DISPLAY_STATE_NAME = "hud_state"
+	}
 }
 
 -- optional mapserver-bridge stuff below

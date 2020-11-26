@@ -13,6 +13,10 @@ local hud = {} -- playername -> data
 local HUD_POSITION = {x = xp_redo.hud.posx, y = xp_redo.hud.posy}
 local HUD_ALIGNMENT = {x = 1, y = 0}
 
+local HUD_DISPLAY_STATE_NAME = "hud_state"
+
+local hud_color = {}
+
 local setup_hud = function(player)
 	local playername = player:get_player_name()
 	if hud[playername] then
@@ -20,9 +24,19 @@ local setup_hud = function(player)
 	end
 
 	local data = {}
+	local color = hud_color[playername] or tonumber(player:get_meta():get_string("xp_redo_hud_color")) or tonumber("0x0000FF")
+	local img_color = hud_color[playername] or player:get_meta():get_string("xp_redo_hud_color") or "0x0000FF"
 
-	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "on")
+	local img_color = string.match(img_color,"%x%x%x%x%x%x$")
 
+	if img_color then
+		img_color = "#"..img_color
+	else
+		img_color = "#0000FF"
+	end
+
+	player:set_attribute(HUD_DISPLAY_STATE_NAME, "on")
+	
 	data.info = player:hud_add({
 		hud_elem_type = "text",
 		position = HUD_POSITION,
@@ -30,8 +44,9 @@ local setup_hud = function(player)
 		text = "",
 		alignment = HUD_ALIGNMENT,
 		scale = {x = 100, y = 100},
-		number = 0x0000FF
+		number = color
 	})
+	
 
 	data.rank = player:hud_add({
 		hud_elem_type = "text",
@@ -40,21 +55,24 @@ local setup_hud = function(player)
 		text = "",
 		alignment = HUD_ALIGNMENT,
 		scale = {x = 100, y = 100},
-		number = 0x0000FF
+		number = color
 	})
 
 	-- rank img
 
-	local RANK_IMG_OFFSET = {x = 0,   y = 90}
+	if not xp_redo.disable_hud_icon then
 
-	data.rankimg = player:hud_add({
-		hud_elem_type = "image",
-		position = HUD_POSITION,
-		offset = RANK_IMG_OFFSET,
-		text = "xp_empty.png",
-		alignment = HUD_ALIGNMENT,
-		scale = {x = 2, y = 2}
-	})
+		local RANK_IMG_OFFSET = {x = 0,   y = 90}
+
+		data.rankimg = player:hud_add({
+			hud_elem_type = "image",
+			position = HUD_POSITION,
+			offset = RANK_IMG_OFFSET,
+			text = "xp_empty.png",
+			alignment = HUD_ALIGNMENT,
+			scale = {x = -9/3, y = -16/3}
+		})
+	end
 
 	-- xp progress
 
@@ -77,7 +95,7 @@ local setup_hud = function(player)
 			hud_elem_type = "image",
 			position = HUD_POSITION,
 			offset = XP_PROGRESS_OFFSET,
-			text = "xp_progress_fg.png",
+			text = "xp_progress_fg.png^[colorize:"..img_color..":255",
 			alignment = HUD_ALIGNMENT,
 			scale = {x = 0, y = 1}
 		})
@@ -91,7 +109,7 @@ local remove_hud = function(player)
 	local playername = player:get_player_name()
 	local data = hud[playername]
 
-	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "off")
+	player:set_attribute(HUD_DISPLAY_STATE_NAME, "off")
 
 
 	if not data then
@@ -133,7 +151,7 @@ minetest.register_chatcommand("xp_hud", {
 		elseif param == "off" then
 			remove_hud(player)
 		else
-			return true, "Usage: xp_hud on|off"
+			return true, "Usage: /xp_hud on|off"
 		end
 	end
 })
@@ -155,14 +173,17 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 		return
 	end
 
-	local infoTxt = "XP: " .. xp_redo.format_thousand(xp)
+	--local infoTxt = "XP: " .. xp_redo.format_thousand(xp)
+	local infoTxt = "XP: " .. xp_redo.format_thousand(xp - rank.xp)
 	local progress = 100
 
 	if next_rank ~= nil then
-		infoTxt = infoTxt .. "/" .. xp_redo.format_thousand(next_rank.xp)
+		--infoTxt = infoTxt .. "/" .. xp_redo.format_thousand(next_rank.xp)
+		infoTxt = infoTxt .. "/" .. xp_redo.format_thousand(next_rank.xp - rank.xp) .. " [" .. xp_redo.format_thousand(xp) .. "]"
 		if next_rank.xp > xp then
 			-- progress from 0 to 100
-			progress = tonumber(xp / next_rank.xp * 100)
+			--progress = tonumber(xp / next_rank.xp * 100)
+			progress = tonumber((xp - rank.xp) / (next_rank.xp - rank.xp) * 100)
 		end
 	end
 
@@ -173,7 +194,9 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	player:hud_change(data.rank, "number", color)
 	player:hud_change(data.rank, "text", "[" .. rank.name .. "]")
 
-	player:hud_change(data.rankimg, "text", rank.icon)
+	if not xp_redo.disable_hud_icon then
+		player:hud_change(data.rankimg, "text", rank.icon)
+	end
 
 	if has_hudbars then
 		hb.change_hudbar(player, "xp_progress", progress)
@@ -205,7 +228,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 end
 
 minetest.register_on_joinplayer(function(player)
-	local state = player:get_attribute(xp_redo.HUD_DISPLAY_STATE_NAME)
+	local state = player:get_attribute(HUD_DISPLAY_STATE_NAME)
 	if not state or state == "on" then
 		setup_hud(player)
 	end
@@ -215,3 +238,24 @@ minetest.register_on_leaveplayer(function(player)
 	local playername = player:get_player_name()
 	hud[playername] = nil
 end)
+
+minetest.register_chatcommand("xp_hud_color", {
+	params = "<hex color code>",
+	description = "Changes the color of your xp HUD to the one specified, eg 0xFFFF00 for yellow",
+	func = function(name, param)
+		local player = minetest.get_player_by_name(name)
+
+		-- detect legit color code. If unsure, keep the default.
+		-- we accept 0x00FF00 or 00FF00
+		local color = string.match(param:trim(),"%x%x%x%x%x%x$")
+
+		if color then
+			hud_color[name] = "0x"..color
+			player:get_meta():set_string("xp_redo_hud_color","0x"..color)
+			remove_hud(player)
+			setup_hud(player)
+		else
+			return true, "Usage: /xp_hud_color 0x00FF00 or 00FF00"
+		end
+	end
+})
