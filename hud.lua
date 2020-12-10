@@ -138,9 +138,7 @@ minetest.register_chatcommand("xp_hud", {
 	end
 })
 
-local get_color = function(r,g,b)
-	return b + (g * 256) + (r * 256 * 256)
-end
+
 
 local function get_hex_color(colorSpec)
 	return string.format("#%x%x%x", colorSpec.r, colorSpec.g, colorSpec.b)
@@ -168,7 +166,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 
 	player:hud_change(data.info, "text", infoTxt)
 
-	local color = get_color(rank.color.r, rank.color.g, rank.color.b)
+	local color = xp_redo.rgb_to_int(rank.color.r, rank.color.g, rank.color.b)
 
 	player:hud_change(data.rank, "number", color)
 	player:hud_change(data.rank, "text", "[" .. rank.name .. "]")

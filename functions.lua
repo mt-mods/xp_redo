@@ -14,59 +14,38 @@ xp_redo.get_rank = function(xp)
 	return result
 end
 
+-- show a level-up dialogue
 local level_up = function(player, rank)
 	local playername = player:get_player_name()
 	minetest.sound_play({name="xp_redo_generic", gain=0.25}, {to_player=playername})
 
-	local one = player:hud_add({
-		hud_elem_type = "image",
-		name = "award_bg",
-		scale = {x = 2, y = 1},
-		text = "xp_levelup_bg_default.png",
-		position = {x = 0.5, y = 0},
-		offset = {x = 0, y = 138},
-		alignment = {x = 0, y = -1}
-	})
-
-	local two = player:hud_add({
+	local h1 = player:hud_add({
 		hud_elem_type = "text",
 		name = "award_au",
-		number = 0xFFFFFF,
-		scale = {x = 100, y = 20},
-		text = "Level-up!",
+		number = xp_redo.rgb_to_int(rank.color.r, rank.color.g, rank.color.b),
+		scale = {x = 100, y = 40},
+		text = "Level-up to " .. rank.name,
 		position = {x = 0.5, y = 0},
 		offset = {x = 0, y = 40},
 		alignment = {x = 0, y = -1}
 	})
 
-	local three = player:hud_add({
-		hud_elem_type = "text",
-		name = "rank_title",
-		number = 0xFFFFFF,
-		scale = {x = 100, y = 20},
-		text = rank.name,
-		position = {x = 0.5, y = 0},
-		offset = {x = 30, y = 100},
-		alignment = {x = 0, y = -1}
-	})
-
-	local rank_offset = {x = -1.5, y = 126}
-
-	local four = player:hud_add({
+	local h2 = player:hud_add({
 		hud_elem_type = "image",
 		name = "award_icon",
-		scale = {x = 2, y = 2},
+		scale = {x = 4, y = 4},
 		text = rank.icon,
-		position = {x = 0.4, y = 0},
-		offset = rank_offset,
+		position = {x = 0.5, y = 0},
+		offset = {x = 0, y = 150},
 		alignment = {x = 0, y = -1}
 	})
 
 	minetest.after(4, function()
-		player:hud_remove(one)
-		player:hud_remove(two)
-		player:hud_remove(three)
-		player:hud_remove(four)
+		player = minetest.get_player_by_name(playername)
+		if player then
+			player:hud_remove(h1)
+			player:hud_remove(h2)
+		end
 	end)
 end
 

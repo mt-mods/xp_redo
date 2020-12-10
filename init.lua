@@ -26,6 +26,7 @@ xp_redo = {
 -- optional mapserver-bridge stuff below
 local http = minetest.request_http_api()
 
+dofile(MP.."/utils.lua")
 dofile(MP.."/hooks.lua")
 dofile(MP.."/ranks.lua")
 dofile(MP.."/json.lua") --json export
