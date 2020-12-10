@@ -169,7 +169,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 	local color = xp_redo.rgb_to_int(rank.color.r, rank.color.g, rank.color.b)
 
 	player:hud_change(data.rank, "number", color)
-	player:hud_change(data.rank, "text", "[" .. rank.name .. "]")
+	player:hud_change(data.rank, "text", rank.name)
 
 	player:hud_change(data.rankimg, "text", rank.icon)
 
