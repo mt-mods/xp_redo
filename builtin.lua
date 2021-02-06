@@ -77,8 +77,7 @@ if xp_redo.enable_dignode_rewards then
 end
 
 -- bonus on digging
-local dig_limiter = (xp_redo.limit_dig_rate and xp_redo.limit_dig_rate > 0) and
-	create_limiter(xp_redo.limit_dig_rate) or (function()end)
+local dig_limiter = (xp_redo.limit_dig_rate and xp_redo.limit_dig_rate > 0) and create_limiter(xp_redo.limit_dig_rate)
 minetest.register_on_dignode(function(_, oldnode, digger)
 	if digger ~= nil and digger:is_player() and not digger.is_fake_player then
 		if not oldnode.name then
@@ -91,7 +90,7 @@ minetest.register_on_dignode(function(_, oldnode, digger)
 		end
 
 		-- digging rate limiter
-		if dig_limiter(digger:get_player_name()) then
+		if dig_limiter and dig_limiter(digger:get_player_name()) then
 			return
 		end
 
