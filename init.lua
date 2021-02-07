@@ -15,6 +15,9 @@ xp_redo = {
 	-- xp penalty on player death
 	enable_death_malus = minetest.settings:get_bool("xp.enable_death_malus", true),
 
+	-- digging rate limiter
+	limit_dig_rate = tonumber(minetest.settings:get("xp.limit_dig_rate")),
+
 	hud = {
 		posx = tonumber(minetest.settings:get("xp.hud.offsetx") or 0.8),
 		posy = tonumber(minetest.settings:get("xp.hud.offsety") or 0.7)
