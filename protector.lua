@@ -75,6 +75,16 @@ minetest.register_node("xp_redo:protector", {
 		local name = player:get_player_name()
 
 		return name == meta:get_string("owner") or minetest.check_player_privs(name, {protection_bypass=true})
+	end,
+
+	after_destruct = function(pos)
+		local objects = minetest.get_objects_inside_radius(pos, 0.5)
+		for _, v in ipairs(objects) do
+			local ent = v:get_luaentity()
+			if ent and ent.name == "protector:display" then
+				v:remove()
+			end
+		end
 	end
 })
 
