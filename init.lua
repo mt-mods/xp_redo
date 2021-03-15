@@ -27,7 +27,7 @@ xp_redo = {
 }
 
 -- optional mapserver-bridge stuff below
-local http = minetest.request_http_api()
+local http = QoS and QoS(minetest.request_http_api(), 2) or minetest.request_http_api()
 
 dofile(MP.."/utils.lua")
 dofile(MP.."/hooks.lua")
