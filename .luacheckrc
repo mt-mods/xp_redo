@@ -11,5 +11,6 @@ read_globals = {
 	-- Deps
 	"default", "mesecon", "hb",
 	"screwdriver", "areas", "protector",
-	"woodcutting"
+	"woodcutting",
+	"QoS",
 }
