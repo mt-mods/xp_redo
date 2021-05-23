@@ -5,14 +5,8 @@ minetest.register_globalstep(function(dtime)
 	if timer >= 3 then
 		local players = minetest.get_connected_players()
 		for _,player in pairs(players) do
-			local xp = player:get_attribute("xp")
-
-			if xp == nil then
-				xp = 0
-				player:set_attribute("xp", xp)
-			else
-				xp = tonumber(xp)
-			end
+			local meta = player:get_meta()
+			local xp = meta:get_int("xp")
 
 			local rank = xp_redo.get_rank(xp)
 			local next_rank = xp_redo.get_next_rank(xp, rank)
