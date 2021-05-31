@@ -1,30 +1,26 @@
 
 local increment_punch_count = function(player)
-	if player == nil or player.get_attribute == nil then
+	if player == nil or player.is_fake_player then
 		-- fake player
 		return
 	end
 
-	local count = player:get_attribute("punch_count")
-	if not count then
-		count = 0
-	end
+	local meta = player:get_meta()
+	local count = meta:get_int("punch_count")
 
-	player:set_attribute("punch_count", count + 1)
+	meta:set_int("punch_count", count + 1)
 end
 
 local increase_inflicted_damage = function(player, value)
-	if player == nil or player.get_attribute == nil then
+	if player == nil or player.is_fake_player then
 		-- fake player
 		return
 	end
 
-	local count = player:get_attribute("inflicted_damage")
-	if not count then
-		count = 0
-	end
+	local meta = player:get_meta()
+	local count = meta:get_int("inflicted_damage")
 
-	player:set_attribute("inflicted_damage", count + value)
+	meta:set_int("inflicted_damage", count + value)
 end
 
 

@@ -21,7 +21,7 @@ local setup_hud = function(player)
 
 	local data = {}
 
-	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "on")
+	player:get_meta():set_string(xp_redo.HUD_DISPLAY_STATE_NAME, "on")
 
 	data.info = player:hud_add({
 		hud_elem_type = "text",
@@ -91,7 +91,7 @@ local remove_hud = function(player)
 	local playername = player:get_player_name()
 	local data = hud[playername]
 
-	player:set_attribute(xp_redo.HUD_DISPLAY_STATE_NAME, "off")
+	player:get_meta():set_string(xp_redo.HUD_DISPLAY_STATE_NAME, "off")
 
 
 	if not data then
@@ -203,7 +203,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 end
 
 minetest.register_on_joinplayer(function(player)
-	local state = player:get_attribute(xp_redo.HUD_DISPLAY_STATE_NAME)
+	local state = player:get_meta():get(xp_redo.HUD_DISPLAY_STATE_NAME)
 	if not state or state == "on" then
 		setup_hud(player)
 	end

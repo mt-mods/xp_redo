@@ -28,18 +28,18 @@ local update_highscore = function()
 
 	for _,player in pairs(players) do
 		local name = player:get_player_name()
+		local xp = player:get_meta():get_int("xp")
 		local found = false
 		for _,entry in pairs(xp_redo.highscore) do
 			if entry.name == name then
 				-- connected player already exists in highscore, update value
-				entry.xp = tonumber(player:get_attribute("xp")) or 0
+				entry.xp = xp
 				found = true
 			end
 		end
 
 		if not found then
 			-- create new entry
-			local xp = tonumber(player:get_attribute("xp") or "0")
 			table.insert(xp_redo.highscore, { name=name, xp=xp })
 		end
 	end
