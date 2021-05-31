@@ -27,7 +27,7 @@ xp_redo = {
 }
 
 -- optional mapserver-bridge stuff below
-local http = QoS and QoS(minetest.request_http_api(), 2) or minetest.request_http_api()
+local http = minetest.global_exists("QoS") and QoS(minetest.request_http_api(), 2) or minetest.request_http_api()
 
 dofile(MP.."/utils.lua")
 dofile(MP.."/hooks.lua")
@@ -35,9 +35,9 @@ dofile(MP.."/ranks.lua")
 dofile(MP.."/json.lua") --json export
 
 if http then
-        print("Enabling discord webhook for XP-Redo")
-        local webhook = dofile(MP.."/webhook.lua")
-        webhook(http)
+	print("Enabling discord webhook for XP-Redo")
+	local webhook = dofile(MP.."/webhook.lua")
+	webhook(http)
 end
 
 if not xp_redo.disable_hover_entity then
@@ -61,7 +61,7 @@ if minetest.get_modpath("areas") then
 end
 
 if minetest.settings:get_bool("enable_xp_redo_integration_test") then
-        dofile(MP.."/integration_test.lua")
+	dofile(MP.."/integration_test.lua")
 end
 
 print("[OK] XP-Redo")
