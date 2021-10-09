@@ -160,7 +160,7 @@ xp_redo.update_hud = function(player, xp, rank, next_rank)
 		infoTxt = infoTxt .. "/" .. xp_redo.format_thousand(next_rank.xp)
 		if next_rank.xp > xp then
 			-- progress from 0 to 100
-			progress = tonumber(xp / next_rank.xp * 100)
+			progress = tonumber((xp - rank.xp) / (next_rank.xp - rank.xp) * 100)
 		end
 	end
 
