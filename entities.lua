@@ -65,6 +65,9 @@ xp_redo.update_rank_entity = function(player, rank)
 
 	local playername = player:get_player_name()
 	local data = player_data[playername]
+	
+	local state = player:get_meta():get(xp_redo.HUD_DISPLAY_STATE_NAME)
+	if not (not state or state == "on") then return end
 
 	-- TODO: check new rank
 	if not data then
