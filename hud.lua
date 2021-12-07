@@ -132,6 +132,7 @@ minetest.register_chatcommand("xp_hud", {
 			setup_hud(player)
 		elseif param == "off" then
 			remove_hud(player)
+			xp_redo.remove_rank_entity(player)
 		else
 			return true, "Usage: xp_hud on|off"
 		end
