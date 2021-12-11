@@ -119,6 +119,15 @@ local remove_hud = function(player)
 	end
 
 	hud[playername] = nil
+
+	if not xp_redo.disable_nametag then
+		local is_admin = minetest.check_player_privs(playername, {privs=true})
+		local is_hidden = minetest.check_player_privs(playername, {hide_nametag=true})
+
+		if is_hidden or is_admin then return end
+
+		player:set_nametag_attributes({ text = playername })
+	end
 end
 
 
