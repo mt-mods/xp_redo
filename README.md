@@ -1,7 +1,6 @@
-## Minetest XP mod (xp_redo)
+# Minetest XP mod (xp_redo)
 
-![](https://github.com/mt-mods/xp_redo/workflows/luacheck/badge.svg)
-
+[![luacheck](https://github.com/mt-mods/xp_redo/actions/workflows/luacheck.yml/badge.svg)](https://github.com/mt-mods/xp_redo/actions/)
 
 Minetest mod for player experience management (xp)
 It adds an xp counter per player and ranks according to your xp level.
@@ -9,56 +8,65 @@ The xp level, your rank and a progress bar to the next rank will show up in your
 On every rank level up you get a award-like notification.
 There is also a xpgate block which, when placed under a wooden door will only allow players with a certain xp level to go through.
 
-* Forum-Topic: [https://forum.minetest.net/viewtopic.php?f=9&t=20124](https://forum.minetest.net/viewtopic.php?f=9&t=20124)
-* With some ideas from: [https://forum.minetest.net/viewtopic.php?id=3291](https://forum.minetest.net/viewtopic.php?id=3291)
+* Forum-Topic: <https://forum.minetest.net/viewtopic.php?f=9&t=20124>
+* With some ideas from: <https://forum.minetest.net/viewtopic.php?id=3291>
 
 ## Installation
 
-- Unzip the archive, rename the folder to xp_redo and
-place it in ..minetest/mods/
+- Unzip the archive, rename the folder to `xp_redo` and
+place it in `.. minetest/mods/`
 
 - GNU/Linux: If you use a system-wide installation place
-    it in ~/.minetest/mods/.
+    it in `~/.minetest/mods/`.
 
 - If you only want this to be used in a single world, place
-    the folder in ..worldmods/ in your world directory.
+    the folder in `.. worldmods/` in your world directory.
 
 For further information or help, see:  
 https://wiki.minetest.net/Installing_Mods
 
 ## Privileges
 
-* **givexp**: Manage XP of your users.
+- **givexp**: Manage XP of your users.
 
 ## Commands
 
 Add or remove (amount with negative sign) XP from a user:
-```
+
+```plaintext
 /givexp (username) (amount)
 ```
 
-Example:
+Examples:\
+Give player somedude 200 XP points.
 
-Give player somedude 200 XP points:
-```
+```plaintext
 /givexp somedude 200
 ```
 
-Remove 100 XP points from player somedude:
-```
+Remove 100 XP points from player somedude.
+
+```plaintext
 /givexp somedude -100
 ```
 
 ## Dependencies
 
-- default
+- `default` (included in [Minetest Game](https://github.com/minetest/minetest_game))
 
 ### Optional dependencies
 
-- doors
-- mobs_redo
-- mobs_animal
-- mobs_monster
+- [`areas`](https://github.com/minetest-mods/areas)
+- [`qos`](https://github.com/S-S-X/qos)
+- [`protector`](https://notabug.org/TenPlus1/protector)
+- `doors` (included in [Minetest Game](https://github.com/minetest/minetest_game))
+- [`mobs_redo`](https://notabug.org/TenPlus1/mobs_redo)
+- [`mobs_animal`](https://notabug.org/TenPlus1/mobs_animal)
+- [`mobs_monster`](https://notabug.org/TenPlus1/mobs_monster)
+- [`mesecons_mvps`](https://github.com/minetest-mods/mesecons/tree/HEAD/mesecons_mvps)
+- [`hudbars`](https://codeberg.org/Wuzzy/minetest_hudbars)
+- `screwdriver` (included in [Minetest Game](https://github.com/minetest/minetest_game))
+- [`woodcutting`](https://github.com/minetest-mods/woodcutting)
 
 # Areas integration
 
@@ -82,17 +90,17 @@ Every mob punch gives you the amount of damage on the mob in xp
 ## Ranks
 
 See:
-* https://github.com/thomasrudin-mt/xp_redo_ranks_ores
+
+- <https://github.com/mt-mods/xp_redo_ranks_ores>
 
 ## Settings
 
-* **xp_redo.discord.webhook_url** discord webhook url (optional)
-* **xp_redo.discord.texture_baseurl** baseurl for the webhook avatar image (optional)
+* **xp_redo.discord.webhook_url** Discord webhook URL (optional)
+* **xp_redo.discord.texture_baseurl** Base URL for the webhook avatar image (optional)
 
-For the webhook, the mod has to be in the `secure.http_mods` setting:
+For the webhook, the mod has to be in the `secure.http_mods` setting (in `minetest.conf`):
 
-minetest.conf
-```
+```conf
 secure.http_mods = xp_redo
 ```
 
@@ -100,7 +108,7 @@ secure.http_mods = xp_redo
 
 ## Ranks
 
-### xp_redo.register_rank(rankDef)
+### `xp_redo.register_rank(rankDef)`
 
 ```lua
 rankDef = {
@@ -111,10 +119,9 @@ rankDef = {
 }
 ```
 
+Ranks are held in `xp_redo.ranks` as a table.
 
-ranks are held in **xp_redo.ranks** as a table.
-
-### xp_redo.get_rank(xpAmount)
+### `xp_redo.get_rank(xpAmount)`
 
 Returns the rankDef for given xp amount
 
@@ -138,11 +145,11 @@ xp_redo.register_hook({
 
 ## XP
 
-### xp_redo.get_xp(playername)
+### `xp_redo.get_xp(playername)`
 
-Returns the xp level for given playername (always a number).
+Returns the XP level for given playername (always a number).
 
-### xp_redo.add_xp(playername, xp)
+### `xp_redo.add_xp(playername, xp)`
 
 Adds the amount of xp to given playername (can be negative for xp removal).
 
@@ -150,11 +157,8 @@ Adds the amount of xp to given playername (can be negative for xp removal).
 
 See LICENSE.txt
 
-* Trophy model/texture source: https://gitlab.com/VanessaE/homedecor_modpack/
-
-* xp_mese_crystal.png
-* https://github.com/minetest/minetest_game mods/default/textures/default_mese_crystal.png
-
+- Trophy model/texture source: <https://gitlab.com/VanessaE/homedecor_modpack/>
+- [`xp_mese_crystal.png`](https://github.com/minetest/minetest_game/blob/HEAD/mods/default/textures/default_mese_crystal.png)
 
 # Pull requests / bugs
 
