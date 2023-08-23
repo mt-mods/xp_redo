@@ -23,7 +23,7 @@ minetest.register_node("xp_redo:xpgate", {
 	groups = {cracky=3,oddly_breakable_by_hand=3,epic=1},
 	drop = "xp_redo:xpgate",
 	sounds = default.node_sound_glass_defaults(),
-	on_rotate = screwdriver.rotate_simple,
+	on_rotate = minetest.get_modpath("screwdriver") and screwdriver.rotate_simple or nil,
 	paramtype2 = "facedir",
 
 	after_place_node = function(pos, placer)
