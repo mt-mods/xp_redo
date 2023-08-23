@@ -1,27 +1,28 @@
-
-
 -- ordered list: { name: '', xp: 0 }
-xp_redo.highscore = {}
+local storage = minetest.get_mod_storage()
 
-local fname = minetest.get_worldpath().."/highscore.txt"
-
-
-local write_file = function()
-   local f = io.open(fname, "w")
-   local data_string = minetest.serialize(xp_redo.highscore)
-   f:write(data_string)
-   io.close(f)
+local function write_file(highscore) 
+    if type(highscore) == "table" then
+        storage:set_string("highscore", minetest.serialize(highscore))
+    end
+end
+ 
+--Get general modstorage
+local function load_file()
+    local highscore_table = storage:get_string("highscore")
+    if highscore_table then
+        highscore_table = minetest.deserialize(highscore_table)
+        --extra check needed
+        if type(highscore_table) ~= "table" then
+            highscore_table = {} 
+        end
+    else 
+        highscore_table = {}
+    end
+    return highscore_table
 end
 
-local f = io.open(fname, "r")
-if f then   -- file exists
-   local data_string = f:read("*all")
-   xp_redo.highscore = minetest.deserialize(data_string)
-   io.close(f)
-else
-   write_file()
-end
-
+xp_redo.highscore = load_file()
 
 local update_highscore = function()
 	local players = minetest.get_connected_players()
@@ -54,11 +55,22 @@ local update_highscore = function()
 end
 
 local timer = 0
+local count = 0
 minetest.register_globalstep(function(dtime)
-   timer = timer + dtime;
-   if timer >= 60 then
-      update_highscore()
-      write_file()
-      timer = 0
-   end
+    timer = timer + dtime;
+    if timer >= 60 then
+        count = count + 1
+        update_highscore()
+        --write_file()
+        timer = 0
+    end
+    if count >= 5 then
+        write_file(xp_redo.highscore)
+    end
 end)
+
+minetest.register_on_shutdown(function()
+    write_file(xp_redo.highscore)
+end)
+
+
