@@ -33,6 +33,7 @@ minetest.register_node("xp_redo:protector", {
 	},
 
 	groups = {cracky=3,oddly_breakable_by_hand=3},
+	is_ground_content = false,
 	sounds = default.node_sound_glass_defaults(),
 
 	after_place_node = function(pos, placer)
