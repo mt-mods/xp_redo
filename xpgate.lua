@@ -21,6 +21,7 @@ minetest.register_node("xp_redo:xpgate", {
 	description = "XP Gateway",
 	tiles = {"xp_gate.png"},
 	groups = {cracky=3,oddly_breakable_by_hand=3,epic=1},
+	is_ground_content = false,
 	drop = "xp_redo:xpgate",
 	sounds = default.node_sound_glass_defaults(),
 	on_rotate = minetest.get_modpath("screwdriver") and screwdriver.rotate_simple or nil,
