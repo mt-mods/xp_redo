@@ -56,6 +56,66 @@ end)
 
 -- chat
 
+minetest.register_chatcommand("area_xp_set_max", {
+    params = "<ID> <xp_limit>",
+    description = "Set or clear the max-xp value of an area",
+    func = function(playername, param)
+      local _, _, id_str, xp = string.find(param, "^([^%s]+)%s+([^%s]+)%s*$")
+      if id_str == nil then
+        return true, "Invalid syntax!"
+      end
+
+      local id = tonumber(id_str)
+      if not id then
+        return true, "area-id is not numeric: " .. id_str
+      end
+
+      if not areas:isAreaOwner(id, playername) and
+        not minetest.check_player_privs(playername, { protection_bypas = true })
+      then
+        return true, "you are not the owner of area: " .. id
+      end
+
+      local xp_area = xp_areas[id]
+      if not xp_area then
+        xp_area = {}
+      end
+
+			xp_area.max = tonumber(xp)
+      xp_areas[id] = xp_area
+      save_xp_areas()
+			return true, "Area " .. id .. " max-xp value: " .. (xp_area.max or "<none>")
+    end,
+})
+
+minetest.register_chatcommand("area_xp_get_max", {
+    params = "<ID>",
+    description = "Returns the max-xp value of an area",
+    func = function(playername, param)
+      if param == nil then
+        return true, "Invalid syntax!"
+      end
+
+      local id = tonumber(param)
+      if not id then
+        return true, "area-id is not numeric: " .. param
+      end
+
+      if not areas:isAreaOwner(id, playername) and
+        not minetest.check_player_privs(playername, { protection_bypas = true })
+      then
+        return true, "you are not the owner of area: " .. id
+      end
+
+      local xp_area = xp_areas[id]
+      if not xp_area then
+        xp_area = {}
+      end
+
+			return true, "Area " .. id .. " max-xp value: " .. (xp_area.max or "<none>")
+    end,
+})
+
 minetest.register_chatcommand("area_xp_set_min", {
     params = "<ID> <xp_limit>",
     description = "Set or clear the min-xp value of an area",
@@ -113,3 +173,4 @@ minetest.register_chatcommand("area_xp_get_min", {
 			return true, "Area " .. id .. " min-xp value: " .. (xp_area.min or "<none>")
     end,
 })
+
