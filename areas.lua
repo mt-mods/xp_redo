@@ -2,6 +2,10 @@
 -- id -> { max=1000, min=100 }
 local xp_areas = {}
 
+function xp_redo.get_area_xp_limits(id)
+  return xp_areas[id] or {}
+end
+
 -- protection check
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
