@@ -60,7 +60,9 @@ minetest.register_chatcommand("area_xp_set_max", {
     params = "<ID> <xp_limit>",
     description = "Set or clear the max-xp value of an area",
     func = function(playername, param)
-      local _, _, id_str, xp = string.find(param, "^([^%s]+)%s+([^%s]+)%s*$")
+      local matcher = param:gmatch("(%S+)")
+      local id_str = matcher()
+      local xp = matcher()
       if id_str == nil then
         return true, "Invalid syntax!"
       end
@@ -120,7 +122,9 @@ minetest.register_chatcommand("area_xp_set_min", {
     params = "<ID> <xp_limit>",
     description = "Set or clear the min-xp value of an area",
     func = function(playername, param)
-      local _, _, id_str, xp = string.find(param, "^([^%s]+)%s+([^%s]+)%s*$")
+      local matcher = param:gmatch("(%S+)")
+      local id_str = matcher()
+      local xp = matcher()
       if id_str == nil then
         return true, "Invalid syntax!"
       end
