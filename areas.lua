@@ -9,19 +9,16 @@ end
 -- protection check
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
-  local area_list = areas:getAreasAtPos(pos)
-  for id in pairs(area_list) do
-    local xp_area = xp_areas[id]
-
-    if xp_area then
-      local xp = xp_redo.get_xp(name)
-      if xp_area.min and xp < xp_area.min then
-        return true
-      elseif xp_area.max and xp > xp_area.max then
-        return true
-      end
-    end
-  end
+	local _, id = areas:getSmallestAreaAtPos(pos)
+	local xp_area = id and xp_areas[id]
+	if xp_area then
+		local xp = xp_redo.get_xp(name)
+		if xp_area.min and xp < xp_area.min then
+			return true
+		elseif xp_area.max and xp > xp_area.max then
+			return true
+		end
+	end
 
 	return old_is_protected(pos, name)
 end
