@@ -9,7 +9,7 @@ end
 -- protection check
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
-	if areas.getSmallestAreaAtPos then
+	if areas.getSmallestAreaAtPos and areas.config.use_smallest_area_precedence then
 		local _, id = areas:getSmallestAreaAtPos(pos)
 		local xp_area = id and xp_areas[id]
 		if xp_area then
